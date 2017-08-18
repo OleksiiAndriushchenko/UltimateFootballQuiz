@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#11FFAA"
+    tools:context="com.example.andaleksei.ultimatefootballquiz.playWithFriendMode">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="play with friend"
+        android:textSize="36dp"
+        android:textColor="#FF1111"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="how to play ?"
+            android:textSize="24dp"
+            android:textColor="#FF1111"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="settings"
+            android:textSize="24dp"
+            android:textColor="#FF1111"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="play"
+            android:textSize="24dp"
+            android:textColor="#FF1111"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>
