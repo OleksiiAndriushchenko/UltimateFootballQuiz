@@ -26,7 +26,7 @@ public class singlePlayGame extends AppCompatActivity {
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.answer);
 
-        String footballer = "pirlo";
+        String footballer = "azpilicueta";
 
         for (int i = 0; i < footballer.length(); ++i) {
             TextView tw1 = new TextView(this);
@@ -41,6 +41,28 @@ public class singlePlayGame extends AppCompatActivity {
             tw1.setBackgroundColor(Color.BLACK);
             tw1.setGravity(Gravity.CENTER);
             ll.addView(tw1);
+        }
+
+        LinearLayout firstRow = (LinearLayout) findViewById(R.id.first_row);
+        LinearLayout secondRow = (LinearLayout) findViewById(R.id.second_row);
+
+        for (int i = 0; i < 9; i++) {
+            TextView tw1 = new TextView(this), tw2 = new TextView(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.character_size_choice),
+                    getResources().getDimensionPixelSize(R.dimen.character_size_choice));
+            params.setMargins(8, 8, 8, 8);
+            tw1.setLayoutParams(params);
+            tw2.setLayoutParams(params);
+            tw1.setText("A");
+            tw2.setText("B");
+            tw1.setTextColor(Color.WHITE);
+            tw2.setTextColor(Color.WHITE);
+            tw1.setBackgroundColor(Color.BLACK);
+            tw2.setBackgroundColor(Color.BLACK);
+            tw1.setGravity(Gravity.CENTER);
+            tw2.setGravity(Gravity.CENTER);
+            firstRow.addView(tw1);
+            secondRow.addView(tw2);
         }
     }
 }
