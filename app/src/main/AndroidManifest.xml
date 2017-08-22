@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.andaleksei.ultimatefootballquiz">
 
     <application
@@ -19,7 +20,8 @@
         <activity android:name=".playModes" />
         <activity android:name=".singlePlayMode" />
         <activity android:name=".playWithFriendMode" />
-        <activity android:name=".DailyChallengeMode"></activity>
+        <activity android:name=".DailyChallengeMode" />
+        <activity android:name=".singlePlayGame"></activity>
     </application>
 
 </manifest>
