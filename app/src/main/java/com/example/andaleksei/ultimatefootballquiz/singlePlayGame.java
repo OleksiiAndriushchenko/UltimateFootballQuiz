@@ -1,5 +1,7 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -19,17 +22,19 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static android.R.id.message;
 import static android.widget.Toast.makeText;
 import static com.example.andaleksei.ultimatefootballquiz.R.id.answer;
 
 public class singlePlayGame extends AppCompatActivity {
 
     private int num = 0;
+    private String footballPlayer;
+    private dataBase database;
 
-    private String footballer = "sanchez";
-
-    TextView answer[] = new TextView[footballer.length()];
-    int answerNum[] = new int[footballer.length()];
+    private ImageView image;
+    TextView answer[];
+    int answerNum[];
 
     TextView firstR[] = new TextView[9];
     TextView secondR[] = new TextView[9];
@@ -38,16 +43,14 @@ public class singlePlayGame extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             TextView clickedView = (TextView) v;
-
-            if (num < footballer.length()) {
-                clickedView.setTextColor(Color.BLACK);
+            if (num < footballPlayer.length() && !clickedView.getText().toString().equals("")) {
                 answer[num].setText(clickedView.getText());
+                clickedView.setText("");
                 int i = 0;
                 do {
                     if (i < 9) {
                         if (clickedView.equals(firstR[i])) {
                             answerNum[num] = i;
-
                         }
                     } else {
                         if (clickedView.equals(secondR[i - 9])) {
@@ -56,6 +59,9 @@ public class singlePlayGame extends AppCompatActivity {
                     }
                 } while (++i < 18);
                 num++;
+                if (num == footballPlayer.length()) {
+                    checkAnswer();
+                }
             }
         }
     };
@@ -65,13 +71,12 @@ public class singlePlayGame extends AppCompatActivity {
         public void onClick(View v) {
             TextView clickedView = (TextView) v;
             if (num > 0 && clickedView.equals(answer[num - 1])) {
-                Toast.makeText(getApplicationContext(), "in if statement", Toast.LENGTH_SHORT).show();
-                clickedView.setText("");
                 if (answerNum[num - 1] < 9) {
-                    firstR[answerNum[num - 1]].setTextColor(Color.WHITE);
+                    firstR[answerNum[num - 1]].setText(clickedView.getText());
                 } else {
-                    secondR[answerNum[num - 10]].setTextColor(Color.WHITE);
+                    secondR[answerNum[num - 1] - 9].setText(clickedView.getText());
                 }
+                clickedView.setText("");
                 num--;
             }
         }
@@ -88,21 +93,53 @@ public class singlePlayGame extends AppCompatActivity {
         }
     }
 
+    private void checkAnswer() {
+        String userInput = "";
+        for (int i = 0; i < num; i++) {
+            userInput += answer[i].getText().toString();
+        }
+        if (footballPlayer.equals(userInput)) {
+            Toast.makeText(getApplicationContext(), "Congratulation, you are right!!!",
+                    Toast.LENGTH_SHORT).show();
+            database.unlockNextFootballer();
+            Log.v("GAME", "after upgrade");
+            Intent singlePlayGameIntent = new Intent(singlePlayGame.this, singlePlayGame.class);
+            startActivity(singlePlayGameIntent);
+        } else {
+            Toast.makeText(getApplicationContext(), "Unfortunately, you are wrong!!!",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_play_game);
+
+        database = new dataBase(this);
+
+        footballer fb = database.getNextFootballer();
+        footballPlayer = fb.getName();
+
+        image = (ImageView) findViewById(R.id.imageView);
+        int resID = getResources().getIdentifier(footballPlayer , "drawable", getPackageName());
+        image.setImageResource(resID);
+
+
+        answer = new TextView[footballPlayer.length()];
+        answerNum = new int[footballPlayer.length()];
+
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.answer);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.character_size),
                 getResources().getDimensionPixelSize(R.dimen.character_size));
 
-        for (int i = 0; i < footballer.length(); ++i) {
+        for (int i = 0; i < footballPlayer.length(); ++i) {
             answer[i] = new TextView(this);
             if (i  == 0) {
                 params.setMargins(0, 0, 8, 0);
-            } else if (i == footballer.length() - 1) {
+            } else if (i == footballPlayer.length() - 1) {
                 params.setMargins(8, 0, 0, 0);
             } else params.setMargins(8, 0, 8, 0);
             answer[i].setLayoutParams(params);
@@ -124,8 +161,8 @@ public class singlePlayGame extends AppCompatActivity {
         ArrayList<Character> foot = new ArrayList<Character>();
 
         for (int i = 0; i < 18; ++i) {
-            if (i < footballer.length()) {
-                foot.add(footballer.charAt(i));
+            if (i < footballPlayer.length()) {
+                foot.add(footballPlayer.charAt(i));
             } else {
                 Random random = new Random();
                 int number = 97 + random.nextInt(26);
