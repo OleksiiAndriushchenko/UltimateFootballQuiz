@@ -30,8 +30,7 @@ public class dataBase {
         return id;
     }
 
-    public footballer getNextFootballer()
-    {
+    public int getNextFootballerId() {
         footballer fb = new footballer();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String arg = "SELECT * FROM " + dataBaseHelper.getTableName() + " WHERE " +
@@ -44,7 +43,7 @@ public class dataBase {
             fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.getNAME())));
             fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.getACCESS())));
         }
-        return fb;
+        return fb.getId();
     }
 
     public footballer getData(int id) {

@@ -20,7 +20,7 @@
 20 balotelli
 21 boateng
 22 bale
-23 thiago silva
+23 thiago_silva
 24 ramos
 25 kroos
 26 iniesta
@@ -30,29 +30,29 @@
 30 robben
 31 hummels
 32 coutinho
-33 diego costa
+33 diego_costa
 34 marchisio
 35 miranda
-36 payet xavier
+36 payet_xavier
 37 barzagli
-38 jordi alba
+38 jordi_alba
 39 cazorla
 40 kompany
 41 matuidi
-42 javi martinez
+42 javi_martinez
 43 sokratis
 44 thiago
 45 higuain
 46 aguero
 47 ozil
 48 modric
-49 de bruyne
+49 de_bruyne
 50 griezmann
 51 godin
 52 pique
-53 di maria
+53 di_maria
 54 racitic
-55 david silva
+55 david_silva
 56 muller
 57 nainggolan
 58 mertens
@@ -75,7 +75,7 @@
 75 laporte
 76 draxler
 77 xhaka
-78 juan mata
+78 juan_mata
 79 jonas
 80 sturridge
 81 garay
@@ -86,16 +86,16 @@
 86 turan
 87 manolas
 88 rooney
-89 douglas costa
+89 douglas_costa
 90 varane
-91 david luiz
-92 alex sandro
+91 david_luiz
+92 alex_sandro
 93 toprak
 94 smalling
-95 ben arfa
+95 ben_arfa
 96 azpilicueta
 97 banega
-98 adrien silva
+98 adrien_silva
 99 lloris
 100 aspas
 101 bonaventura
@@ -109,7 +109,7 @@
 109 mustafi
 110 kagawa
 111 ruffier
-112 quiz gustavo
+112 luiz_gustavo
 113 giovinco
 114 brahimi
 115 mandanda
@@ -119,8 +119,8 @@
 119 baines
 120 sommer
 121 bravo
-122 de rossi
-123 joao mario
+122 de_rossi
+123 joao_mario
 124 sneijder
 125 slimani
 126 quaresma
@@ -131,7 +131,7 @@
 131 medel
 132 pedro
 133 cahill
-134 lasana diarra
+134 lasana_diarra
 135 aurier
 136 bellarabi
 137 oscar
@@ -140,9 +140,9 @@
 140 tah
 141 kampl
 142 modeste
-143 lucas vazquez
+143 lucas_vazquez
 144 hart
-145 rui patricio
+145 rui_patricio
 146 falcao
 147 bernardo
 148 navas
@@ -152,14 +152,14 @@
 152 valencia
 153 gueye
 154 henderson
-155 delle alli
+155 delle_alli
 156 subasic
 157 umtiti
 158 savic
 159 handanovic
 160 lovren
 161 shaqiri
-162 diego alves
+162 diego_alves
 163 wilshere
 164 arnautovic
 165 muslera
@@ -192,7 +192,7 @@
 192 hector
 193 gaspar
 194 kovacic
-195 ben yedder
+195 ben_yedder
 196 dante
 197 thauvin
 198 dzeko
@@ -211,9 +211,9 @@
 211 ansaldi
 212 bartra
 213 herrmann
-214 marcos alonso
+214 marcos_alonso
 215 clyne
-216 de marcos
+216 de_marcos
 217 strootman
 218 honda
 219 benteke
@@ -255,7 +255,7 @@
 255 huntelaar
 256 srna
 257 milner
-258 ruben castro
+258 ruben_castro
 259 sidibe
 260 belhanda
 261 tolisso
@@ -377,7 +377,7 @@
 377 klavan
 378 cambiasso
 379 aquilani
-380 de jong
+380 de_jong
 381 musa
 382 delph
 383 long1
@@ -386,15 +386,15 @@
 386 montoya
 387 elneny
 388 iturbe
-389 alberto moreno
+389 alberto_moreno
 390 berahino
 391 okore
-392 aleix vidal
+392 aleix_vidal
 393 ings
 394 okazaki
 395 shelvey
 396 janmaat
-397 di santo
+397 di_santo
 398 allen
 399 holebas
 400 torosidis
@@ -437,7 +437,7 @@
 437 jedbaj
 438 ocampos
 439 ibarbo
-440 van aanholt
+440 van_aanholt
 441 ledley
 442 diamanti
 443 downing

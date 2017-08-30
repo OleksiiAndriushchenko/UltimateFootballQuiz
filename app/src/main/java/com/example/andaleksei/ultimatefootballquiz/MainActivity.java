@@ -23,5 +23,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(playModesIntent);
             }
         });
+
+        TextView upgradeButton = (TextView) findViewById(R.id.upgrade);
+        upgradeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dataBase database = new dataBase(MainActivity.this);
+                database.upgrade();
+            }
+        });
     }
 }

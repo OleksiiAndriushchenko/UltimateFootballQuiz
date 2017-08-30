@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,13 +23,11 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static android.R.id.message;
-import static android.widget.Toast.makeText;
-import static com.example.andaleksei.ultimatefootballquiz.R.id.answer;
-
 public class singlePlayGame extends AppCompatActivity {
 
     private int num = 0;
+    private int space;
+    private int wordLength;
     private String footballPlayer;
     private dataBase database;
 
@@ -43,7 +42,7 @@ public class singlePlayGame extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             TextView clickedView = (TextView) v;
-            if (num < footballPlayer.length() && !clickedView.getText().toString().equals("")) {
+            if (num < wordLength && !clickedView.getText().toString().equals("")) {
                 answer[num].setText(clickedView.getText());
                 clickedView.setText("");
                 int i = 0;
@@ -59,7 +58,7 @@ public class singlePlayGame extends AppCompatActivity {
                     }
                 } while (++i < 18);
                 num++;
-                if (num == footballPlayer.length()) {
+                if (num == wordLength) {
                     checkAnswer();
                 }
             }
@@ -118,28 +117,36 @@ public class singlePlayGame extends AppCompatActivity {
 
         database = new dataBase(this);
 
-        footballer fb = database.getNextFootballer();
+        footballer fb = database.getData(database.getNextFootballerId());
         footballPlayer = fb.getName();
+        if (footballPlayer.contains("_")) {
+            wordLength = footballPlayer.length() - 1;
+            footballPlayer = footballPlayer.replace("_", " ");
+            space = footballPlayer.indexOf(' ');
+
+            answer = new TextView[wordLength];
+            answerNum = new int[wordLength];
+        } else {
+            wordLength = footballPlayer.length();
+            answer = new TextView[wordLength];
+            answerNum = new int[wordLength];
+        }
 
         image = (ImageView) findViewById(R.id.imageView);
-        int resID = getResources().getIdentifier(footballPlayer , "drawable", getPackageName());
+        int resID = getResources().getIdentifier(fb.getName() , "drawable", getPackageName());
         image.setImageResource(resID);
 
-
-        answer = new TextView[footballPlayer.length()];
-        answerNum = new int[footballPlayer.length()];
-
-
-        LinearLayout ll = (LinearLayout) findViewById(R.id.answer);
+        LinearLayout ll1 = (LinearLayout) findViewById(R.id.answer1);
+        LinearLayout ll2 = (LinearLayout) findViewById(R.id.answer2);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.character_size),
                 getResources().getDimensionPixelSize(R.dimen.character_size));
 
-        for (int i = 0; i < footballPlayer.length(); ++i) {
+        for (int i = 0; i < wordLength; ++i) {
             answer[i] = new TextView(this);
             if (i  == 0) {
                 params.setMargins(0, 0, 8, 0);
-            } else if (i == footballPlayer.length() - 1) {
+            } else if (i == wordLength - 1) {
                 params.setMargins(8, 0, 0, 0);
             } else params.setMargins(8, 0, 8, 0);
             answer[i].setLayoutParams(params);
@@ -147,7 +154,13 @@ public class singlePlayGame extends AppCompatActivity {
             answer[i].setTextColor(Color.WHITE);
             answer[i].setBackgroundColor(Color.BLACK);
             answer[i].setGravity(Gravity.CENTER);
-            ll.addView(answer[i]);
+            if (footballPlayer.contains(" ")) {
+                if (i < space) {
+                    ll1.addView(answer[i]);
+                } else {
+                    ll2.addView(answer[i]);
+                }
+            } else ll1.addView(answer[i]);
             answer[i].setOnClickListener(onCharacterAnswerClickListener);
         }
 
@@ -160,8 +173,10 @@ public class singlePlayGame extends AppCompatActivity {
 
         ArrayList<Character> foot = new ArrayList<Character>();
 
+        footballPlayer = footballPlayer.replace(" ", "");
+
         for (int i = 0; i < 18; ++i) {
-            if (i < footballPlayer.length()) {
+            if (i < wordLength) {
                 foot.add(footballPlayer.charAt(i));
             } else {
                 Random random = new Random();

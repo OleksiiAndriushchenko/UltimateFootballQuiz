@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:background="#55FFAA"
+    android:orientation="vertical"
     tools:context="com.example.andaleksei.ultimatefootballquiz.MainActivity">
 
     <TextView
         android:id="@+id/main_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Play"
-        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="48dp"
+        android:textColor="#FF1111" />
+
+    <TextView
+        android:id="@+id/upgrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upgrade"
+        android:layout_gravity="center"
         android:textSize="48dp"
         android:textColor="#FF1111" />
 
