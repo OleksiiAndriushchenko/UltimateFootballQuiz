@@ -20,28 +20,60 @@ public class dataBase {
         dbHelper = new dataBaseHelper(context);
     }
 
+    public long insertVariable(String var, long val) {
+        SQLiteDatabase dbb = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dataBaseHelper.NAME, var);
+        contentValues.put(dataBaseHelper.VALUE, val);
+        long id = dbb.insert(dataBaseHelper.TABLE_NAME_VARIABLES, null, contentValues);
+        return id;
+    }
+
+    public void updateVariable(String var, int val) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dataBaseHelper.NAME, var);
+        contentValues.put(dataBaseHelper.VALUE, val);
+        int id = db.update(dataBaseHelper.TABLE_NAME_VARIABLES, contentValues,
+                dataBaseHelper.NAME + " = ?", new String[]{var});
+    }
+
+    public int getVariableData(String var) {
+        int val = 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_VARIABLES;
+        Cursor cursor =db.rawQuery(arg, null);
+        while (cursor.moveToNext())
+        {
+            val = cursor.getInt(cursor.getColumnIndex(dataBaseHelper.VALUE));
+        }
+        Log.v("GET METHOD", "" + val);
+        return val;
+    }
+
+
     public long insertData(footballer fb) {
         SQLiteDatabase dbb = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(dataBaseHelper.getUID(), fb.getId());
-        contentValues.put(dataBaseHelper.getNAME(), fb.getName());
-        contentValues.put(dataBaseHelper.getACCESS(), fb.getAccess());
-        long id = dbb.insert(dataBaseHelper.getTableName(), null , contentValues);
+        contentValues.put(dataBaseHelper.UID, fb.getId());
+        contentValues.put(dataBaseHelper.NAME, fb.getName());
+        contentValues.put(dataBaseHelper.ACCESS, fb.getAccess());
+        long id = dbb.insert(dataBaseHelper.TABLE_NAME_FOOTBALLERS, null , contentValues);
         return id;
     }
 
     public int getNextFootballerId() {
         footballer fb = new footballer();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String arg = "SELECT * FROM " + dataBaseHelper.getTableName() + " WHERE " +
-                dataBaseHelper.getACCESS() + " = 1 ORDER BY " + dataBaseHelper.getUID() +
+        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_FOOTBALLERS + " WHERE " +
+                dataBaseHelper.ACCESS + " = 1 ORDER BY " + dataBaseHelper.UID +
                 " DESC LIMIT 1";
         Cursor cursor =db.rawQuery(arg, null);
         while (cursor.moveToNext())
         {
-            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.getUID())));
-            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.getNAME())));
-            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.getACCESS())));
+            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
+            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
+            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
         }
         return fb.getId();
     }
@@ -49,14 +81,14 @@ public class dataBase {
     public footballer getData(int id) {
         footballer fb = new footballer();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String arg = "SELECT * FROM " + dataBaseHelper.getTableName() + " WHERE " +
-                dataBaseHelper.getUID() + " = " + id;
+        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_FOOTBALLERS + " WHERE " +
+                dataBaseHelper.UID + " = " + id;
         Cursor cursor =db.rawQuery(arg, null);
         while (cursor.moveToNext())
         {
-            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.getUID())));
-            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.getNAME())));
-            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.getACCESS())));
+            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
+            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
+            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
         }
         return fb;
     }
@@ -64,25 +96,23 @@ public class dataBase {
     public void unlockNextFootballer() {
         footballer fb = new footballer();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String arg = "SELECT * FROM " + dataBaseHelper.getTableName() + " WHERE " +
-                dataBaseHelper.getACCESS() + " = 0 ORDER BY " + dataBaseHelper.getUID() +
+        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_FOOTBALLERS + " WHERE " +
+                dataBaseHelper.ACCESS + " = 0 ORDER BY " + dataBaseHelper.UID +
                 " ASC LIMIT 1";
-        Log.v("GAME", arg);
         Cursor cursor =db.rawQuery(arg, null);
         while (cursor.moveToNext())
         {
-            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.getUID())));
-            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.getNAME())));
-            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.getACCESS())));
+            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
+            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
+            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
         }
         fb.setAccess(1);
         ContentValues contentValues = new ContentValues();
-        contentValues.put(dataBaseHelper.getUID(), fb.getId());
-        contentValues.put(dataBaseHelper.getNAME(), fb.getName());
-        contentValues.put(dataBaseHelper.getACCESS(), fb.getAccess());
-        Log.v("GAME", fb.getId() + " " + fb.getName() + " " + fb.getAccess());
-        db.update(dataBaseHelper.getTableName(), contentValues,
-                dataBaseHelper.getNAME() + " = ?", new String[]{fb.getName()});
+        contentValues.put(dataBaseHelper.UID, fb.getId());
+        contentValues.put(dataBaseHelper.NAME, fb.getName());
+        contentValues.put(dataBaseHelper.ACCESS, fb.getAccess());
+        db.update(dataBaseHelper.TABLE_NAME_FOOTBALLERS, contentValues,
+                dataBaseHelper.NAME + " = ?", new String[]{fb.getName()});
     }
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,17 +18,26 @@ import static java.security.AccessController.getContext;
  */
 
 public class dataBaseHelper extends SQLiteOpenHelper {
-    private static final String DATEBASE_NAME = "myDatebase";
-    private static final String TABLE_NAME = "footballerTable";
-    private static final int DATEBASE_Version = 1;
-    private static final String UID = "_id";
-    private static final String NAME = "Name";
-    private static final String ACCESS = "Access";
-    private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
+    public static final String DATEBASE_NAME = "myDatebase";
+    public static final int DATEBASE_Version = 1;
+
+    public static final String TABLE_NAME_FOOTBALLERS = "footballerTable";
+    public static final String UID = "_id";
+    public static final String NAME = "Name";
+    public static final String ACCESS = "Access";
+    public static final String CREATE_TABLE_FOOTBALLERS = "CREATE TABLE " + TABLE_NAME_FOOTBALLERS + " (" +
             UID + " INTEGER , " +
             NAME + " VARCHAR(255) ," +
             ACCESS + " INTEGER);";
-    private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    public static final String DROP_TABLE_FOOTBALLERS = "DROP TABLE IF EXISTS " + TABLE_NAME_FOOTBALLERS;
+
+    public static final String TABLE_NAME_VARIABLES = "variablesTable";
+    public static final String VALUE = "value";
+    public static final String CREATE_TABLE_VARIABLES = "CREATE TABLE " + TABLE_NAME_VARIABLES + " (" +
+            NAME + " VARCHAR(255) ," +
+            VALUE + " INTEGER);";
+    public static final String DROP_TABLE_VARIABLES = "DROP TABLE IF EXISTS " + TABLE_NAME_VARIABLES;
+
     private Context context;
 
     public dataBaseHelper(Context context) {
@@ -37,7 +47,12 @@ public class dataBaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(CREATE_TABLE_FOOTBALLERS);
+        db.execSQL(CREATE_TABLE_VARIABLES);
+
+        dataBase database = new dataBase(context);
+
+        long id = database.insertVariable("footballer", 1);
 
         InputStream fis = context.getResources().openRawResource(R.raw.footballers);
 
@@ -55,8 +70,6 @@ public class dataBaseHelper extends SQLiteOpenHelper {
                 do {
                     line = buffreader.readLine();
 
-                    System.out.println(line);
-
                     String number = line.subSequence(0, line.indexOf(' ')).toString();
                     Integer num = Integer.valueOf(number);
                     String name = line.subSequence(line.indexOf(' ') + 1, line.length()).toString();
@@ -68,7 +81,6 @@ public class dataBaseHelper extends SQLiteOpenHelper {
                         fb = new footballer(num, name, 0);
                     }
 
-                    dataBase database = new dataBase(context);
                     database.insertData(fb);
 
                 } while (line != null);
@@ -87,31 +99,9 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(DROP_TABLE);
+        db.execSQL(DROP_TABLE_FOOTBALLERS);
+        db.execSQL(DROP_TABLE_VARIABLES);
         onCreate(db);
     }
 
-    public static String getDatebaseName() {
-        return DATEBASE_NAME;
-    }
-
-    public static String getTableName() {
-        return TABLE_NAME;
-    }
-
-    public static int getDATEBASE_Version() {
-        return DATEBASE_Version;
-    }
-
-    public static String getUID() {
-        return UID;
-    }
-
-    public static String getNAME() {
-        return NAME;
-    }
-
-    public static String getACCESS() {
-        return ACCESS;
-    }
 }

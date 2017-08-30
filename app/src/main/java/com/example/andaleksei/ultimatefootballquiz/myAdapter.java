@@ -22,6 +22,7 @@ public class myAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        position++;
         TextView textview;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.grid_element, null);
@@ -32,9 +33,9 @@ public class myAdapter extends BaseAdapter {
 
         if (position < footballerId) {
             textview.setBackgroundColor(Color.YELLOW);
-        } else if (position > footballerId) {
-            textview.setBackgroundColor(Color.GRAY);
-        }
+        } else if (position == footballerId) {
+            textview.setBackgroundColor(Color.BLUE);
+        } else textview.setBackgroundColor(Color.GRAY);
 
         return convertView;
     }

@@ -18,7 +18,7 @@ public class singlePlayMode extends AppCompatActivity {
         singlePlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent singlePlayMenuIntent = new Intent(singlePlayMode.this, singlePlayGame.class);
+                Intent singlePlayMenuIntent = new Intent(singlePlayMode.this, singlePlayMenu.class);
 
                 startActivity(singlePlayMenuIntent);
             }
