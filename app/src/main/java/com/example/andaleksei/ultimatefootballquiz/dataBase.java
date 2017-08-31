@@ -18,7 +18,6 @@ public class dataBase {
 
     public dataBase(Context context) {
         dbHelper = dataBaseHelper.getInstance(context);
-        Log.v("BASE", "" + dbHelper.hashCode());
     }
 
     public long insertVariable(String var, long val) {

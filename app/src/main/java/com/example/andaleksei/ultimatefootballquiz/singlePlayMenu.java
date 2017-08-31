@@ -15,6 +15,7 @@ public class singlePlayMenu extends Activity {
 
     private GridView gridView;
     private dataBase database;
+    private int currentFootballerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class singlePlayMenu extends Activity {
         database = new dataBase(this);
 
         gridView = (GridView) findViewById(R.id.gridview);
-        final int currentFootballerId = database.getNextFootballerId();
+        currentFootballerId = database.getNextFootballerId();
         myAdapter gridAdapter = new myAdapter(singlePlayMenu.this, currentFootballerId);
         gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,7 +51,7 @@ public class singlePlayMenu extends Activity {
         database = new dataBase(this);
 
         gridView = (GridView) findViewById(R.id.gridview);
-        final int currentFootballerId = database.getNextFootballerId();
+        currentFootballerId = database.getNextFootballerId();
         myAdapter gridAdapter = new myAdapter(singlePlayMenu.this, currentFootballerId);
         gridView.setAdapter(gridAdapter);
     }

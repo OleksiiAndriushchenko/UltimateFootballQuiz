@@ -100,12 +100,16 @@ public class singlePlayGame extends AppCompatActivity {
         if (footballPlayer.equals(userInput)) {
             Toast.makeText(getApplicationContext(), "Congratulation, you are right!!!",
                     Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "" + database.getVariableData("footballer") +
+                 " " + database.getNextFootballerId(), Toast.LENGTH_SHORT).show();
             if (database.getVariableData("footballer") == database.getNextFootballerId()) {
                 database.unlockNextFootballer();
                 database.updateVariable("footballer", database.getNextFootballerId());
             } else {
                 database.updateVariable("footballer", database.getVariableData("footballer") + 1);
             }
+            Toast.makeText(getApplicationContext(), "data = " + database.getVariableData("footballer"),
+                    Toast.LENGTH_SHORT).show();
             Intent singlePlayGameIntent = new Intent(singlePlayGame.this, singlePlayGame.class);
             this.finish();
             startActivity(singlePlayGameIntent);
@@ -125,12 +129,10 @@ public class singlePlayGame extends AppCompatActivity {
         database = new dataBase(this);
 
         int data = database.getVariableData("footballer");
-        Toast.makeText(getApplicationContext(), "data = " + data, Toast.LENGTH_SHORT).show();
 
         footballer fb = database.getData(data);
         footballPlayer = fb.getName();
 
-        Toast.makeText(getApplicationContext(), "name" + fb.getName(), Toast.LENGTH_SHORT).show();
 
         if (footballPlayer.contains("_")) {
             wordLength = footballPlayer.length() - 1;

@@ -63,12 +63,10 @@ public class dataBaseHelper extends SQLiteOpenHelper {
 
         dataBase database = new dataBase(context);
 
-        Log.v("onCreate", "before");
         ContentValues contentValues = new ContentValues();
         contentValues.put(dataBaseHelper.NAME, "footballer");
         contentValues.put(dataBaseHelper.VALUE, 1);
         db.insert(dataBaseHelper.TABLE_NAME_VARIABLES, null, contentValues);
-        Log.v("onCreate", "after");
 
         InputStream fis = context.getResources().openRawResource(R.raw.footballers);
 
