@@ -120,10 +120,18 @@ public class singlePlayGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_play_game);
 
+        Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT).show();
+
         database = new dataBase(this);
 
-        footballer fb = database.getData(database.getVariableData("footballer"));
+        int data = database.getVariableData("footballer");
+        Toast.makeText(getApplicationContext(), "data = " + data, Toast.LENGTH_SHORT).show();
+
+        footballer fb = database.getData(data);
         footballPlayer = fb.getName();
+
+        Toast.makeText(getApplicationContext(), "name" + fb.getName(), Toast.LENGTH_SHORT).show();
+
         if (footballPlayer.contains("_")) {
             wordLength = footballPlayer.length() - 1;
             footballPlayer = footballPlayer.replace("_", " ");

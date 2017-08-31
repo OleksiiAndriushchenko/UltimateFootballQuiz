@@ -1,5 +1,6 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -18,6 +19,8 @@ import static java.security.AccessController.getContext;
  */
 
 public class dataBaseHelper extends SQLiteOpenHelper {
+    private static dataBaseHelper instance = null;
+
     public static final String DATEBASE_NAME = "myDatebase";
     public static final int DATEBASE_Version = 1;
 
@@ -45,14 +48,27 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
+    public static dataBaseHelper getInstance(Context c) {
+        if (instance == null) {
+            instance = new dataBaseHelper(c.getApplicationContext());
+        }
+        return instance;
+    }
+
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE_FOOTBALLERS);
         db.execSQL(CREATE_TABLE_VARIABLES);
 
+
         dataBase database = new dataBase(context);
 
-        long id = database.insertVariable("footballer", 1);
+        Log.v("onCreate", "before");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dataBaseHelper.NAME, "footballer");
+        contentValues.put(dataBaseHelper.VALUE, 1);
+        db.insert(dataBaseHelper.TABLE_NAME_VARIABLES, null, contentValues);
+        Log.v("onCreate", "after");
 
         InputStream fis = context.getResources().openRawResource(R.raw.footballers);
 
@@ -81,7 +97,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
                         fb = new footballer(num, name, 0);
                     }
 
-                    database.insertData(fb);
+                    long id = database.insertData(fb);
 
                 } while (line != null);
             } catch (Exception e) {
