@@ -15,24 +15,32 @@ public class singlePlayMenu extends Activity {
 
     private GridView gridView;
     private dataBase database;
-    private int currentFootballerId;
+    private int currentObjectId;
+    private String tableName;
+    private String varName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_play_menu);
         database = new dataBase(this);
+        tableName = database.getTableName(database.getVariableData("playMode"));
+        varName = database.getVarName(database.getVariableData("playMode"));
+        int data = database.getVariableData(varName);
+
+        Toast.makeText(getApplicationContext(), "table = " + tableName, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "data = " + data, Toast.LENGTH_SHORT).show();
 
         gridView = (GridView) findViewById(R.id.gridview);
-        currentFootballerId = database.getNextFootballerId();
-        myAdapter gridAdapter = new myAdapter(singlePlayMenu.this, currentFootballerId);
+        currentObjectId = database.getNextItemId(tableName);
+        myAdapter gridAdapter = new myAdapter(singlePlayMenu.this, currentObjectId);
         gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 position++;
-                if (position <= currentFootballerId) {
-                    database.updateVariable("footballer", position);
+                if (position <= currentObjectId) {
+                    database.updateVariable(varName, position);
                     Intent singlePlayGameIntent = new Intent(singlePlayMenu.this, singlePlayGame.class);
 
                     startActivity(singlePlayGameIntent);
@@ -48,11 +56,10 @@ public class singlePlayMenu extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        database = new dataBase(this);
 
         gridView = (GridView) findViewById(R.id.gridview);
-        currentFootballerId = database.getNextFootballerId();
-        myAdapter gridAdapter = new myAdapter(singlePlayMenu.this, currentFootballerId);
+        currentObjectId = database.getNextItemId(tableName);
+        myAdapter gridAdapter = new myAdapter(singlePlayMenu.this, currentObjectId);
         gridView.setAdapter(gridAdapter);
     }
 }

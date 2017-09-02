@@ -29,19 +29,21 @@ public class dataBase {
         return id;
     }
 
-    public void updateVariable(String var, int val) {
+    public int updateVariable(String var, int val) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(dataBaseHelper.NAME, var);
         contentValues.put(dataBaseHelper.VALUE, val);
         int id = db.update(dataBaseHelper.TABLE_NAME_VARIABLES, contentValues,
                 dataBaseHelper.NAME + " = ?", new String[]{var});
+        return id;
     }
 
     public int getVariableData(String var) {
         int val = 0;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_VARIABLES;
+        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_VARIABLES +
+                " WHERE Name = '" + var + "'";
         Cursor cursor =db.rawQuery(arg, null);
         while (cursor.moveToNext())
         {
@@ -51,69 +53,89 @@ public class dataBase {
     }
 
 
-    public long insertData(footballer fb) {
+    public long insertItem(item object, String tableName) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(dataBaseHelper.UID, fb.getId());
-        contentValues.put(dataBaseHelper.NAME, fb.getName());
-        contentValues.put(dataBaseHelper.ACCESS, fb.getAccess());
-        long id = db.insert(dataBaseHelper.TABLE_NAME_FOOTBALLERS, null , contentValues);
+        contentValues.put(dataBaseHelper.UID, object.getId());
+        contentValues.put(dataBaseHelper.NAME, object.getName());
+        contentValues.put(dataBaseHelper.ACCESS, object.getAccess());
+        long id = db.insert(tableName, null , contentValues);
         return id;
     }
 
-    public int getNextFootballerId() {
-        footballer fb = new footballer();
+    public int getNextItemId(String tableName) {
+        item object = new item();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_FOOTBALLERS + " WHERE " +
+        String arg = "SELECT * FROM " + tableName + " WHERE " +
                 dataBaseHelper.ACCESS + " = 1 ORDER BY " + dataBaseHelper.UID +
                 " DESC LIMIT 1";
         Cursor cursor =db.rawQuery(arg, null);
         while (cursor.moveToNext())
         {
-            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
-            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
-            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
+            object.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
+            object.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
+            object.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
         }
-        return fb.getId();
+        return object.getId();
     }
 
-    public footballer getData(int id) {
-        footballer fb = new footballer();
+    public item getData(int id, String tableName) {
+        item object = new item();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_FOOTBALLERS + " WHERE " +
+        String arg = "SELECT * FROM " + tableName + " WHERE " +
                 dataBaseHelper.UID + " = " + id;
         Cursor cursor =db.rawQuery(arg, null);
         while (cursor.moveToNext())
         {
-            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
-            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
-            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
+            object.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
+            object.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
+            object.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
         }
-        return fb;
+        return object;
     }
 
-    public void unlockNextFootballer() {
-        footballer fb = new footballer();
+    public void unlockNextItem(String tableName) {
+        item object = new item();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_FOOTBALLERS + " WHERE " +
+        String arg = "SELECT * FROM " + tableName + " WHERE " +
                 dataBaseHelper.ACCESS + " = 0 ORDER BY " + dataBaseHelper.UID +
                 " ASC LIMIT 1";
         Cursor cursor =db.rawQuery(arg, null);
         while (cursor.moveToNext())
         {
-            fb.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
-            fb.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
-            fb.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
+            object.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
+            object.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
+            object.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
         }
-        fb.setAccess(1);
+        object.setAccess(1);
 
         db = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(dataBaseHelper.UID, fb.getId());
-        contentValues.put(dataBaseHelper.NAME, fb.getName());
-        contentValues.put(dataBaseHelper.ACCESS, fb.getAccess());
-        db.update(dataBaseHelper.TABLE_NAME_FOOTBALLERS, contentValues,
-                dataBaseHelper.NAME + " = ?", new String[]{fb.getName()});
+        contentValues.put(dataBaseHelper.UID, object.getId());
+        contentValues.put(dataBaseHelper.NAME, object.getName());
+        contentValues.put(dataBaseHelper.ACCESS, object.getAccess());
+        db.update(tableName, contentValues,
+                dataBaseHelper.NAME + " = ?", new String[]{object.getName()});
+    }
+
+    public String getVarName(int data) {
+        switch (data) {
+            case 1:
+                return "footballer";
+            case 2:
+                return "club";
+        }
+        return "null";
+    }
+
+    public String getTableName(int data) {
+        switch (data) {
+            case 1:
+                return dataBaseHelper.TABLE_NAME_FOOTBALLERS;
+            case 2:
+                return dataBaseHelper.TABLE_NAME_CLUBS;
+        }
+        return "null";
     }
 
 

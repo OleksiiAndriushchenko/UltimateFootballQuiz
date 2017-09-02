@@ -41,6 +41,13 @@ public class dataBaseHelper extends SQLiteOpenHelper {
             VALUE + " INTEGER);";
     public static final String DROP_TABLE_VARIABLES = "DROP TABLE IF EXISTS " + TABLE_NAME_VARIABLES;
 
+    public static final String TABLE_NAME_CLUBS = "clubTable";
+    public static final String CREATE_TABLE_CLUBS = "CREATE TABLE " + TABLE_NAME_CLUBS + " (" +
+            UID + " INTEGER , " +
+            NAME + " VARCHAR(255) ," +
+            ACCESS + " INTEGER);";
+    public static final String DROP_TABLE_CLUBS = "DROP TABLE IF EXISTS " + TABLE_NAME_CLUBS;
+
     private Context context;
 
     public dataBaseHelper(Context context) {
@@ -55,20 +62,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    public void onCreate(SQLiteDatabase db) {
-
-        db.execSQL(CREATE_TABLE_FOOTBALLERS);
-        db.execSQL(CREATE_TABLE_VARIABLES);
-
-
-        dataBase database = new dataBase(context);
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(dataBaseHelper.NAME, "footballer");
-        contentValues.put(dataBaseHelper.VALUE, 1);
-        db.insert(dataBaseHelper.TABLE_NAME_VARIABLES, null, contentValues);
-
-        InputStream fis = context.getResources().openRawResource(R.raw.footballers);
+    private void fillTable(dataBase database, InputStream fis, String tableName) {
 
         if (fis != null) {
 
@@ -83,19 +77,20 @@ public class dataBaseHelper extends SQLiteOpenHelper {
                 // read every line of the file into the line-variable, on line at the time
                 do {
                     line = buffreader.readLine();
+                    Log.v("DATABASE", line);
 
                     String number = line.subSequence(0, line.indexOf(' ')).toString();
                     Integer num = Integer.valueOf(number);
                     String name = line.subSequence(line.indexOf(' ') + 1, line.length()).toString();
 
-                    footballer fb;
+                    item object;
                     if (num == 1) {
-                        fb = new footballer(num, name, 1);
+                        object = new item(num, name, 1);
                     } else {
-                        fb = new footballer(num, name, 0);
+                        object = new item(num, name, 0);
                     }
 
-                    long id = database.insertData(fb);
+                    long id = database.insertItem(object, tableName);
 
                 } while (line != null);
             } catch (Exception e) {
@@ -112,9 +107,32 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    public void onCreate(SQLiteDatabase db) {
+
+        db.execSQL(CREATE_TABLE_FOOTBALLERS);
+        db.execSQL(CREATE_TABLE_VARIABLES);
+        db.execSQL(CREATE_TABLE_CLUBS);
+
+
+        dataBase database = new dataBase(context);
+
+        database.insertVariable("footballer", 1);
+        database.insertVariable("playMode", 0);
+        database.insertVariable("club", 1);
+
+        InputStream fis = context.getResources().openRawResource(R.raw.footballers);
+        fillTable(database, fis, TABLE_NAME_FOOTBALLERS);
+
+        fis = context.getResources().openRawResource(R.raw.clubs);
+        fillTable(database, fis, TABLE_NAME_CLUBS);
+
+    }
+
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DROP_TABLE_FOOTBALLERS);
         db.execSQL(DROP_TABLE_VARIABLES);
+        db.execSQL(DROP_TABLE_CLUBS);
         onCreate(db);
     }
 

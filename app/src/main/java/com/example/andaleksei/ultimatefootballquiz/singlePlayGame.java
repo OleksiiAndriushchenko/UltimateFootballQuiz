@@ -23,12 +23,17 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static android.R.attr.data;
+
 public class singlePlayGame extends AppCompatActivity {
 
     private int num = 0;
     private int space;
     private int wordLength;
-    private String footballPlayer;
+    private String objectName;
+    private String varName;
+    private String tableName;
+
     private dataBase database;
 
     private ImageView image;
@@ -97,19 +102,15 @@ public class singlePlayGame extends AppCompatActivity {
         for (int i = 0; i < num; i++) {
             userInput += answer[i].getText().toString();
         }
-        if (footballPlayer.equals(userInput)) {
+        if (objectName.equals(userInput)) {
             Toast.makeText(getApplicationContext(), "Congratulation, you are right!!!",
                     Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(), "" + database.getVariableData("footballer") +
-                 " " + database.getNextFootballerId(), Toast.LENGTH_SHORT).show();
-            if (database.getVariableData("footballer") == database.getNextFootballerId()) {
-                database.unlockNextFootballer();
-                database.updateVariable("footballer", database.getNextFootballerId());
+            if (database.getVariableData(varName) == database.getNextItemId(tableName)) {
+                database.unlockNextItem(tableName);
+                database.updateVariable(varName, database.getNextItemId(tableName));
             } else {
-                database.updateVariable("footballer", database.getVariableData("footballer") + 1);
+                database.updateVariable(varName, database.getVariableData(varName) + 1);
             }
-            Toast.makeText(getApplicationContext(), "data = " + database.getVariableData("footballer"),
-                    Toast.LENGTH_SHORT).show();
             Intent singlePlayGameIntent = new Intent(singlePlayGame.this, singlePlayGame.class);
             this.finish();
             startActivity(singlePlayGameIntent);
@@ -124,31 +125,35 @@ public class singlePlayGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_play_game);
 
-        Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT).show();
-
         database = new dataBase(this);
 
-        int data = database.getVariableData("footballer");
+        tableName = database.getTableName(database.getVariableData("playMode"));
+        varName = database.getVarName(database.getVariableData("playMode"));
 
-        footballer fb = database.getData(data);
-        footballPlayer = fb.getName();
+        Toast.makeText(getApplicationContext(), "table = " + tableName, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "var = " + varName, Toast.LENGTH_SHORT).show();
+
+        int data = database.getVariableData(varName);
+
+        item object = database.getData(data, tableName);
+        objectName = object.getName();
 
 
-        if (footballPlayer.contains("_")) {
-            wordLength = footballPlayer.length() - 1;
-            footballPlayer = footballPlayer.replace("_", " ");
-            space = footballPlayer.indexOf(' ');
+        if (objectName.contains("_")) {
+            wordLength = objectName.length() - 1;
+            objectName = objectName.replace("_", " ");
+            space = objectName.indexOf(' ');
 
             answer = new TextView[wordLength];
             answerNum = new int[wordLength];
         } else {
-            wordLength = footballPlayer.length();
+            wordLength = objectName.length();
             answer = new TextView[wordLength];
             answerNum = new int[wordLength];
         }
 
         image = (ImageView) findViewById(R.id.imageView);
-        int resID = getResources().getIdentifier(fb.getName() , "drawable", getPackageName());
+        int resID = getResources().getIdentifier(object.getName() , "drawable", getPackageName());
         image.setImageResource(resID);
 
         LinearLayout ll1 = (LinearLayout) findViewById(R.id.answer1);
@@ -169,7 +174,7 @@ public class singlePlayGame extends AppCompatActivity {
             answer[i].setTextColor(Color.WHITE);
             answer[i].setBackgroundColor(Color.BLACK);
             answer[i].setGravity(Gravity.CENTER);
-            if (footballPlayer.contains(" ")) {
+            if (objectName.contains(" ")) {
                 if (i < space) {
                     ll1.addView(answer[i]);
                 } else {
@@ -188,11 +193,11 @@ public class singlePlayGame extends AppCompatActivity {
 
         ArrayList<Character> foot = new ArrayList<Character>();
 
-        footballPlayer = footballPlayer.replace(" ", "");
+        objectName = objectName.replace(" ", "");
 
         for (int i = 0; i < 18; ++i) {
             if (i < wordLength) {
-                foot.add(footballPlayer.charAt(i));
+                foot.add(objectName.charAt(i));
             } else {
                 Random random = new Random();
                 int number = 97 + random.nextInt(26);
