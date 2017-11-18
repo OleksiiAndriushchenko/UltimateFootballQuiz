@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="#55FFAA"
-    android:orientation="vertical"
+    android:background="@drawable/field"
     tools:context="com.example.andaleksei.ultimatefootballquiz.MainActivity">
 
     <TextView
         android:id="@+id/main_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:text="Play"
-        android:layout_gravity="center"
-        android:textSize="48dp"
-        android:textColor="#FF1111" />
+        android:layout_centerInParent="true"/>
 
-    <TextView
-        android:id="@+id/upgrade"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upgrade"
-        android:layout_gravity="center"
-        android:textSize="48dp"
-        android:textColor="#FF1111" />
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true">
 
-</LinearLayout>
+        <ImageView
+            style="@style/coins"/>
+
+        <TextView
+            android:id="@+id/coins"
+            style="@style/coinsNumbers" />
+
+    </LinearLayout>
+
+</RelativeLayout>

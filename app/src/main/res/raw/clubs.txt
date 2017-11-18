@@ -12,7 +12,7 @@
 12 porto
 13 aston_villa
 14 juventus
-15 juventus
+15 valencia
 16 leicester
 17 chelsea
 18 napoli
@@ -48,7 +48,7 @@
 48 espanyol
 49 burnley
 50 real_betis
-51 cologne
+51 fluminense
 52 real_zaragoza
 53 palermo
 54 norwich
@@ -66,7 +66,7 @@
 66 villarreal
 67 besiktas
 68 getafe
-69 west_bromwich
+69 flamengo
 70 almeria
 71 sassuolo
 72 perugia
@@ -80,7 +80,7 @@
 80 basel
 81 west_ham
 82 boca_juniors
-83 queens_park
+83 estudiantes
 84 fortuna
 85 shakhtar
 86 osasuna
@@ -97,7 +97,7 @@
 97 sunderland
 98 dinamo_zagreb
 99 melbourne_city
-100 melbourne_city
+100 botafogo
 101 gremio
 102 granada
 103 arminia
@@ -141,7 +141,7 @@
 141 dynamo_dresden
 142 mainz
 143 standard_liege
-144 standard_liege
+144 oxford_united
 145 duisburg
 146 blackburn_rovers
 147 bari

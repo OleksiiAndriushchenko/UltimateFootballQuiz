@@ -33,7 +33,7 @@
 33 diego_costa
 34 marchisio
 35 miranda
-36 payet_xavier
+36 payet
 37 barzagli
 38 jordi_alba
 39 cazorla
@@ -51,9 +51,9 @@
 51 godin
 52 pique
 53 di_maria
-54 racitic
+54 rakitic
 55 david_silva
-56 muller
+56 werner
 57 nainggolan
 58 mertens
 59 eriksen
@@ -71,7 +71,7 @@
 71 glik
 72 insigne
 73 perisic
-74 icardi
+74 morata
 75 laporte
 76 draxler
 77 xhaka
@@ -149,7 +149,7 @@
 149 salah
 150 mane
 151 walker
-152 valencia
+152 fellaini
 153 gueye
 154 henderson
 155 delle_alli
@@ -230,7 +230,7 @@
 230 walcott
 231 digne
 232 drogba
-233 gerrard
+233 jenkinson
 234 tiago
 235 promes
 236 eremenko
@@ -293,7 +293,7 @@
 293 hernanes
 294 jones
 295 badstuber
-296 debuchy
+296 rashford
 297 bradley
 298 soldado
 299 subotic
@@ -321,7 +321,7 @@
 321 forsberg
 322 pareja
 323 dradel
-324 lens
+324 llorente
 325 sansone
 326 sow
 327 young
@@ -380,8 +380,8 @@
 380 de_jong
 381 musa
 382 delph
-383 delph
-384 gnabry
+383 fernandinho
+384 koscielny
 385 halilovic
 386 montoya
 387 elneny
@@ -407,7 +407,7 @@
 407 meunier
 408 gago
 409 mitrovic
-410 djorou
+410 debuchy
 411 lingard
 412 cassano
 413 markovic
@@ -434,7 +434,7 @@
 434 flamini
 435 assaidi
 436 romeu
-437 jedbaj
+437 jedvaj
 438 ocampos
 439 ibarbo
 440 van_aanholt

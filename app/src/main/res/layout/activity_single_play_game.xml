@@ -2,65 +2,126 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_gravity="center"
-        android:layout_width="256dp"
-        android:layout_height="256dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_centerHorizontal="true"/>
+    android:layout_height="match_parent"
+    android:background="@drawable/field">
 
     <LinearLayout
-        android:id="@+id/answer1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            style="@style/coins"/>
+
+        <TextView
+            android:id="@+id/coins"
+            style="@style/coinsNumbers" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/answer2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/answer1"
-        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/hints"
+            style="@style/bulb"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
+        android:id="@+id/parent"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/first_row"
+            android:id="@+id/clubs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:padding="2dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:layout_margin="8dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/years"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:textSize="26dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/answer1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
             android:gravity="center">
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/second_row"
+            android:id="@+id/answer2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal"
             android:gravity="center">
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/characters"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/first_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/second_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>

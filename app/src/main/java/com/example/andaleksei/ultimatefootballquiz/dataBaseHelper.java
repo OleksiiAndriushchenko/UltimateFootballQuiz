@@ -2,16 +2,21 @@ package com.example.andaleksei.ultimatefootballquiz;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static android.R.attr.name;
+import static android.R.attr.value;
 import static java.security.AccessController.getContext;
 
 /**
@@ -24,29 +29,51 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     public static final String DATEBASE_NAME = "myDatebase";
     public static final int DATEBASE_Version = 1;
 
+
     public static final String TABLE_NAME_FOOTBALLERS = "footballerTable";
     public static final String UID = "_id";
+    public static final String COMPLETED = "Completed";
     public static final String NAME = "Name";
     public static final String ACCESS = "Access";
+    public static final String VALUE = "Value";
     public static final String CREATE_TABLE_FOOTBALLERS = "CREATE TABLE " + TABLE_NAME_FOOTBALLERS + " (" +
             UID + " INTEGER , " +
             NAME + " VARCHAR(255) ," +
+            COMPLETED + " INTEGER , " +
             ACCESS + " INTEGER);";
     public static final String DROP_TABLE_FOOTBALLERS = "DROP TABLE IF EXISTS " + TABLE_NAME_FOOTBALLERS;
-
-    public static final String TABLE_NAME_VARIABLES = "variablesTable";
-    public static final String VALUE = "value";
-    public static final String CREATE_TABLE_VARIABLES = "CREATE TABLE " + TABLE_NAME_VARIABLES + " (" +
-            NAME + " VARCHAR(255) ," +
-            VALUE + " INTEGER);";
-    public static final String DROP_TABLE_VARIABLES = "DROP TABLE IF EXISTS " + TABLE_NAME_VARIABLES;
 
     public static final String TABLE_NAME_CLUBS = "clubTable";
     public static final String CREATE_TABLE_CLUBS = "CREATE TABLE " + TABLE_NAME_CLUBS + " (" +
             UID + " INTEGER , " +
-            NAME + " VARCHAR(255) ," +
+            NAME + " VARCHAR(255) , " +
+            COMPLETED + " INTEGER , " +
             ACCESS + " INTEGER);";
     public static final String DROP_TABLE_CLUBS = "DROP TABLE IF EXISTS " + TABLE_NAME_CLUBS;
+
+
+    public static final String TABLE_NAME_TRANSFERS = "transferTable";
+    public static final String CREATE_TABLE_TRANSFERS = "CREATE TABLE " + TABLE_NAME_TRANSFERS + " (" +
+            UID + " INTEGER , " +
+            NAME + " VARCHAR(255) ," +
+            COMPLETED + " INTEGER , " +
+            ACCESS + " INTEGER);";
+    public static final String DROP_TABLE_TRANSFERS = "DROP TABLE IF EXISTS " + TABLE_NAME_TRANSFERS;
+
+    public static final String TABLE_NAME_LEGENDS = "legendTable";
+    public static final String CREATE_TABLE_LEGENDS = "CREATE TABLE " + TABLE_NAME_LEGENDS + " (" +
+            UID + " INTEGER , " +
+            NAME + " VARCHAR(255) ," +
+            COMPLETED + " INTEGER , " +
+            ACCESS + " INTEGER);";
+    public static final String DROP_TABLE_LEGENDS = "DROP TABLE IF EXISTS " + TABLE_NAME_LEGENDS;
+
+    public static final String TABLE_NAME_VARIABLES = "variablesTable";
+    public static final String CREATE_TABLE_VARIABLES = "CREATE TABLE " + TABLE_NAME_VARIABLES + " (" +
+            UID + " INEGER , " +
+            NAME + " VARCHAR(255) ," +
+            VALUE + " INTEGER);";
+    public static final String DROP_TABLE_VARIABLES = "DROP TABLE IF EXISTS " + TABLE_NAME_VARIABLES;
 
     private Context context;
 
@@ -58,11 +85,18 @@ public class dataBaseHelper extends SQLiteOpenHelper {
     public static dataBaseHelper getInstance(Context c) {
         if (instance == null) {
             instance = new dataBaseHelper(c.getApplicationContext());
+            SQLiteDatabase db = instance.getReadableDatabase();
+
+            Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME_FOOTBALLERS, null);
+
+            if (!cursor.moveToFirst()) {
+                instance.onUpgrade(db, 1, 1);
+            }
         }
         return instance;
     }
 
-    private void fillTable(dataBase database, InputStream fis, String tableName) {
+    private void fillTable(dataBase database, InputStream fis, String tableName, int opennedItems) {
 
         if (fis != null) {
 
@@ -77,17 +111,16 @@ public class dataBaseHelper extends SQLiteOpenHelper {
                 // read every line of the file into the line-variable, on line at the time
                 do {
                     line = buffreader.readLine();
-                    Log.v("DATABASE", line);
 
                     String number = line.subSequence(0, line.indexOf(' ')).toString();
                     Integer num = Integer.valueOf(number);
                     String name = line.subSequence(line.indexOf(' ') + 1, line.length()).toString();
 
                     item object;
-                    if (num == 1) {
-                        object = new item(num, name, 1);
+                    if (num <= opennedItems) {
+                        object = new item(num, name, 1, 0);
                     } else {
-                        object = new item(num, name, 0);
+                        object = new item(num, name, 0, 0);
                     }
 
                     long id = database.insertItem(object, tableName);
@@ -107,32 +140,52 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    private void insertVariable(SQLiteDatabase db, String name, int id) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(dataBaseHelper.UID, id);
+        contentValues.put(dataBaseHelper.NAME, name);
+        contentValues.put(dataBaseHelper.VALUE, id == 1 ? 50 : 0);
+
+        db.insert(dataBaseHelper.TABLE_NAME_VARIABLES, null , contentValues);
+    }
 
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE_FOOTBALLERS);
-        db.execSQL(CREATE_TABLE_VARIABLES);
         db.execSQL(CREATE_TABLE_CLUBS);
-
+        db.execSQL(CREATE_TABLE_TRANSFERS);
+        db.execSQL(CREATE_TABLE_LEGENDS);
+        db.execSQL(CREATE_TABLE_VARIABLES);
 
         dataBase database = new dataBase(context);
 
-        database.insertVariable("footballer", 1);
-        database.insertVariable("playMode", 0);
-        database.insertVariable("club", 1);
-
         InputStream fis = context.getResources().openRawResource(R.raw.footballers);
-        fillTable(database, fis, TABLE_NAME_FOOTBALLERS);
+        fillTable(database, fis, TABLE_NAME_FOOTBALLERS, 30);
 
         fis = context.getResources().openRawResource(R.raw.clubs);
-        fillTable(database, fis, TABLE_NAME_CLUBS);
+        fillTable(database, fis, TABLE_NAME_CLUBS, 10);
+
+        fis = context.getResources().openRawResource(R.raw.transfers);
+        fillTable(database, fis, TABLE_NAME_TRANSFERS, 10);
+
+        fis = context.getResources().openRawResource(R.raw.legends);
+        fillTable(database, fis, TABLE_NAME_LEGENDS, 0);
+
+        insertVariable(db, "coins", 1);
+        insertVariable(db, "remove char", 2);
+        insertVariable(db, "remove chars", 3);
+        insertVariable(db, "add char", 4);
+        insertVariable(db, "add chars", 5);
 
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DROP_TABLE_FOOTBALLERS);
-        db.execSQL(DROP_TABLE_VARIABLES);
         db.execSQL(DROP_TABLE_CLUBS);
+        db.execSQL(DROP_TABLE_TRANSFERS);
+        db.execSQL(DROP_TABLE_LEGENDS);
+        db.execSQL(DROP_TABLE_VARIABLES);
         onCreate(db);
     }
 

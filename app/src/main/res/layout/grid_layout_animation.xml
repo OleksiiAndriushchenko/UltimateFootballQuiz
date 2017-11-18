@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gridLayoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:columnDelay="0.5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:directionPriority="row"
+    android:direction="right_to_left"
+    android:animation="@anim/animation_gridview" />

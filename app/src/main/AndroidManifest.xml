@@ -19,9 +19,12 @@
         <activity android:name=".playModes" />
         <activity android:name=".singlePlayMode" />
         <activity android:name=".playWithFriendMode" />
-        <activity android:name=".DailyChallengeMode" />
         <activity android:name=".singlePlayGame" />
-        <activity android:name=".singlePlayMenu"></activity>
+        <activity android:name=".singlePlayMenu" />
+        <activity android:name=".playWithFriendGame" />
+        <activity android:name=".popupWindowSinglePlayMode" />
+        <activity android:name=".popupWindowPlayWithFriend" />
+        <activity android:name=".hints"></activity>
     </application>
 
 </manifest>

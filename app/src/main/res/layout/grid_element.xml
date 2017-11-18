@@ -3,16 +3,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textview"
+    <LinearLayout
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_margin="8dp"
-        android:gravity="center"
-        android:text="text"
-        android:textSize="18sp"
-        android:textColor="#FDD835"
-        android:background="#01579B"
-        android:layout_gravity="center_horizontal"/>
+        android:background="@drawable/grid_frame"
+        android:padding="4dp">
+
+        <TextView
+            android:text="400"
+            android:id="@+id/textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
 
 </LinearLayout>
