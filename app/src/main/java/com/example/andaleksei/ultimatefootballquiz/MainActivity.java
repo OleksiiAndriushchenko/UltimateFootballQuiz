@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/SEASRN__.ttf");
 
+        playButton.setTypeface(custom_font);
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

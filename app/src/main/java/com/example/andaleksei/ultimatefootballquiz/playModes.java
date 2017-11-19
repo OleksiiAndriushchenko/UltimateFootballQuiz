@@ -36,8 +36,6 @@ public class playModes extends AppCompatActivity {
                 Color.parseColor("#FF3D803D") // shadow color
         );
 
-        TextView playWithFriendButton = (TextView) findViewById(R.id.play_with_friend);
-
         singlePlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +44,10 @@ public class playModes extends AppCompatActivity {
                 startActivity(singlePlayModeIntent);
             }
         });
+
+        TextView playWithFriendButton = (TextView) findViewById(R.id.play_with_friend);
+
+        playWithFriendButton.setTypeface(custom_font);
 
         playWithFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
