@@ -24,17 +24,11 @@ public class playModes extends AppCompatActivity {
 
         database = new dataBase(this);
 
-        TextView singlePlayButton = (TextView)findViewById(R.id.single_play);
-
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/SEASRN__.ttf");
 
+        TextView singlePlayButton = (TextView)findViewById(R.id.single_play);
+
         singlePlayButton.setTypeface(custom_font);
-        singlePlayButton.setShadowLayer(
-                10f, // radius
-                5.0f, // dx
-                5.0f, // dy
-                Color.parseColor("#FF3D803D") // shadow color
-        );
 
         singlePlayButton.setOnClickListener(new View.OnClickListener() {
             @Override

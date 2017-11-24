@@ -3,6 +3,8 @@
     <dimen name="character_size">32dp</dimen>
     <dimen name="character_size_choice">40dp</dimen>
     <dimen name="club_size">48dp</dimen>
+    <dimen name="grid_size">48dp</dimen>
     <dimen name="arrow_size">32dp</dimen>
     <dimen name="popup_height">32dp</dimen>
+    <dimen name="margin_normal">8dp</dimen>
 </resources>

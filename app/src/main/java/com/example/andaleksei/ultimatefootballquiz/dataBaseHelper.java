@@ -173,10 +173,8 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         fillTable(database, fis, TABLE_NAME_LEGENDS, 0);
 
         insertVariable(db, "coins", 1);
-        insertVariable(db, "remove char", 2);
-        insertVariable(db, "remove chars", 3);
-        insertVariable(db, "add char", 4);
-        insertVariable(db, "add chars", 5);
+        insertVariable(db, "add char", 2);
+        insertVariable(db, "add chars", 3);
 
     }
 

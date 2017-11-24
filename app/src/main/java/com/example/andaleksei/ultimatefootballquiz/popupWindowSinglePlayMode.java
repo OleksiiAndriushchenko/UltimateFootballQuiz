@@ -25,8 +25,6 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
         currentIntent = getIntent();
         database = new dataBase(this);
 
-        database.updateVariable(COINS, database.getVariableValue(COINS) + 25);
-
         TextView level = (TextView) findViewById(R.id.level);
 
         int completedItem = currentIntent.getIntExtra("choosen item", -1) - 1;

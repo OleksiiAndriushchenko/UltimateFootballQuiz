@@ -1,9 +1,11 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,17 +15,14 @@ public class hints extends AppCompatActivity {
 
     private dataBase database;
 
-    private final String hintPhrase1 = "Remove a needless characters";
-    private final String hintPhrase2 = "Remove all needless characters";
-    private final String hintPhrase3 = "Hint one letter";
-    private final String hintPhrase4 = "Hint the whole word";
+    private final String hintPhrase1 = "Hint one letter";
+    private final String hintPhrase2 = "Hint the whole word";
 
     TextView hint1;
     TextView hint2;
-    TextView hint3;
-    TextView hint4;
 
-    private int removedChars = 0;
+    LinearLayout containerHint1;
+    LinearLayout containerHint2;
 
     private int addedChars = 0;
 
@@ -36,48 +35,14 @@ public class hints extends AppCompatActivity {
 
         final int addChar = getIntent().getIntExtra("add char", -1);
 
-        int removeChar = getIntent().getIntExtra("remove char", -1);
-
         final int numberOfChars = getIntent().getIntExtra("number of chars", -1);
 
-
         hint1 = (TextView) findViewById(R.id.hint1);
+        containerHint1 = (LinearLayout) findViewById(R.id.containerHint1);
 
-        hint1.setText(hintPhrase1 + " - " + removeChar);
+        hint1.setText(hintPhrase1 + " - " + addChar);
 
         hint1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removedChars++;
-
-                database.updateVariable("remove char", removedChars);
-
-                if (removedChars == numberOfChars) {
-                    hint1.setOnClickListener(null);
-                    hint2.setOnClickListener(null);
-                }
-            }
-        });
-
-        hint2 = (TextView) findViewById(R.id.hint2);
-
-        hint2.setText(hintPhrase2 + " - " + removeChar * (16 - numberOfChars));
-
-        hint2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                database.updateVariable("remove chars", 1);
-
-                hint1.setOnClickListener(null);
-                hint2.setOnClickListener(null);
-            }
-        });
-
-        hint3 = (TextView) findViewById(R.id.hint3);
-
-        hint3.setText(hintPhrase3 + " - " + addChar);
-
-        hint3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addedChars++;
@@ -86,27 +51,35 @@ public class hints extends AppCompatActivity {
 
                 if (addedChars == numberOfChars) {
                     hint1.setOnClickListener(null);
+                    hint1.setTextColor(Color.parseColor("#455A64"));
+                    containerHint1.setBackgroundResource(R.drawable.textview_frame_dark);
+
                     hint2.setOnClickListener(null);
-                    hint3.setOnClickListener(null);
-                    hint4.setOnClickListener(null);
+                    hint2.setTextColor(Color.parseColor("#455A64"));
+                    containerHint2.setBackgroundResource(R.drawable.textview_frame_dark);
                 }
             }
         });
 
-        hint4 = (TextView) findViewById(R.id.hint4);
+        hint2 = (TextView) findViewById(R.id.hint2);
+        containerHint2 = (LinearLayout) findViewById(R.id.containerHint2);
 
-        hint4.setText(hintPhrase4 + " - " + addChar * numberOfChars);
+        hint2.setText(hintPhrase2 + " - " + addChar * numberOfChars);
 
-        hint4.setOnClickListener(new View.OnClickListener() {
+        hint2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 database.updateVariable("add chars", 1);
 
                 hint1.setOnClickListener(null);
+                hint1.setTextColor(Color.parseColor("#455A64"));
+                containerHint1.setBackgroundResource(R.drawable.textview_frame_dark);
+
                 hint2.setOnClickListener(null);
-                hint3.setOnClickListener(null);
-                hint4.setOnClickListener(null);
+                hint2.setTextColor(Color.parseColor("#455A64"));
+                containerHint2.setBackgroundResource(R.drawable.textview_frame_dark);
             }
         });
+
     }
 }

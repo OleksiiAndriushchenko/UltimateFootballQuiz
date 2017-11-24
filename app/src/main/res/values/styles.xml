@@ -15,8 +15,8 @@
         <item name="android:layout_margin">4dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">28dp</item>
-        <item name="android:background">@drawable/rounded_rectangle</item>
-        <item name="android:textColor">#81C784</item>
+        <item name="android:background">@drawable/grid_frame</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="optionStyle">
@@ -51,17 +51,13 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name="animationdialog">
-        <item name="@android:windowEnterAnimation">@anim/popup_animation_in</item>
-        <item name="@android:windowExitAnimation">@anim/popup_animation_out</item>
-    </style>
-
     <style name="bulb">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:src">@drawable/coins</item>
-        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:src">@drawable/bulb</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
     </style>
 
     <style name="coins">

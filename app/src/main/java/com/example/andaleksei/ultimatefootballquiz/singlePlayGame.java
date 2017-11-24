@@ -1,5 +1,6 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -8,12 +9,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class singlePlayGame extends AppCompatActivity {
@@ -31,10 +38,9 @@ public class singlePlayGame extends AppCompatActivity {
     private String tableName;
 
     private final String COINS = "coins";
-    private final String hint1 = "remove char";
-    private final String hint2 = "remove chars";
-    private final String hint3 = "add char";
-    private final String hint4 = "add chars";
+
+    private final String hint1 = "add char";
+    private final String hint2 = "add chars";
 
     private item currentObject;
 
@@ -43,7 +49,7 @@ public class singlePlayGame extends AppCompatActivity {
     private ImageView image;
     private ImageView previousClub;
 
-    TextView answer[];
+    List<TextView> answer;
     int answerNum[];
 
     TextView firstR[] = new TextView[charactersPerRow];
@@ -55,10 +61,11 @@ public class singlePlayGame extends AppCompatActivity {
             TextView clickedView = (TextView) v;
 
             if (num < wordLength && !clickedView.getText().toString().equals("")) {
-                answer[num].setText(clickedView.getText());
+                answer.get(num).setText(clickedView.getText());
                 clickedView.setText("");
 
                 int i = 0;
+
                 do {
                     if (i < charactersPerRow) {
                         if (clickedView.equals(firstR[i])) {
@@ -73,9 +80,6 @@ public class singlePlayGame extends AppCompatActivity {
 
                 num++;
 
-                if (num == wordLength) {
-                    checkAnswer();
-                }
             }
         }
     };
@@ -85,7 +89,7 @@ public class singlePlayGame extends AppCompatActivity {
         public void onClick(View v) {
             TextView clickedView = (TextView) v;
 
-            if (num > 0 && clickedView.equals(answer[num - 1])) {
+            if (num > 0 && clickedView.equals(answer.get(num - 1))) {
                 if (answerNum[num - 1] < charactersPerRow) {
                     firstR[answerNum[num - 1]].setText(clickedView.getText());
                 } else {
@@ -133,18 +137,19 @@ public class singlePlayGame extends AppCompatActivity {
     }
 
     private void checkAnswer() {
+
         String userInput = "";
 
         for (int i = 0; i < num; i++) {
-            userInput += answer[i].getText().toString();
+            userInput += answer.get(i).getText().toString();
         }
 
         if (objectName.equals(userInput)) {
-            Toast.makeText(getApplicationContext(), "Congratulation, you are right!!!",
-                    Toast.LENGTH_SHORT).show();
 
             if (currentObject.getCompleted() == 0) {
                 currentObject.setCompleted(1);
+
+                database.updateVariable(COINS, database.getVariableValue(COINS) + 25);
 
                 database.setCompleted(tableName, currentObject);
 
@@ -164,13 +169,22 @@ public class singlePlayGame extends AppCompatActivity {
             startActivity(popupWindow);
 
         } else {
-            Toast.makeText(getApplicationContext(), "Unfortunately, you are wrong!!!",
-                    Toast.LENGTH_SHORT).show();
+            startAnimation();
         }
+
     }
 
     private int getResourceId(String resourceName) {
         return getResources().getIdentifier(resourceName, "drawable", getPackageName());
+    }
+
+    private void startAnimation() {
+
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.textview_vibro);
+
+        for (int i = 0; i < answer.size(); i++) {
+            answer.get(i).startAnimation(animation);
+        }
     }
 
     @Override
@@ -192,13 +206,13 @@ public class singlePlayGame extends AppCompatActivity {
         currentObject = database.getData(itemIndex, tableName);
         objectName = currentObject.getName();
 
+        LinearLayout clubsRow = (LinearLayout) findViewById(R.id.clubs);
+
         // if mode is transfer then we should parse string
         if (tableName.compareTo("transferTable") == 0) {
             objectName = currentObject.divideString();
 
             int numberOfClubs = currentObject.getNumberOfClubs();
-
-            LinearLayout clubsRow = (LinearLayout) findViewById(R.id.clubs);
 
             int clubSize = getResources().getDimensionPixelSize(R.dimen.club_size);
             int arrowSize = getResources().getDimensionPixelSize(R.dimen.arrow_size);
@@ -231,6 +245,10 @@ public class singlePlayGame extends AppCompatActivity {
                 }
             }
 
+        } else {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) clubsRow.getLayoutParams();
+            params.weight = 0.0f;
+            clubsRow.setLayoutParams(params);
         }
 
 
@@ -240,13 +258,13 @@ public class singlePlayGame extends AppCompatActivity {
             objectName = objectName.replace("_", " ");
             space = objectName.indexOf(' ');
 
-            answer = new TextView[wordLength];
             answerNum = new int[wordLength];
         } else {
             wordLength = objectName.length();
-            answer = new TextView[wordLength];
             answerNum = new int[wordLength];
         }
+
+        answer = new ArrayList<TextView>();
 
         image = (ImageView) findViewById(R.id.imageView);
         TextView years = (TextView) findViewById(R.id.years);
@@ -278,33 +296,47 @@ public class singlePlayGame extends AppCompatActivity {
         LinearLayout ll1 = (LinearLayout) findViewById(R.id.answer1);
         LinearLayout ll2 = (LinearLayout) findViewById(R.id.answer2);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.character_size),
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                getResources().getDimensionPixelSize(R.dimen.character_size),
                 getResources().getDimensionPixelSize(R.dimen.character_size));
 
         for (int i = 0; i < wordLength; ++i) {
-            answer[i] = new TextView(this);
+
+            TextView tempTextview = new TextView(this);
+
             if (i  == 0) {
                 params.setMargins(0, 0, 8, 0);
             } else if (i == wordLength - 1) {
                 params.setMargins(8, 0, 0, 0);
             } else params.setMargins(8, 0, 8, 0);
 
-            answer[i].setLayoutParams(params);
-            answer[i].setText("");
-            answer[i].setTextSize(20f);
-            answer[i].setTextColor(Color.WHITE);
-            answer[i].setBackgroundColor(Color.BLACK);
-            answer[i].setGravity(Gravity.CENTER);
+            params.weight = objectName.length() > 7 ? 1 : 0;
 
             if (objectName.contains(" ")) {
                 if (i < space) {
-                    ll1.addView(answer[i]);
-                } else {
-                    ll2.addView(answer[i]);
-                }
-            } else ll1.addView(answer[i]);
+                    params.weight = space > 7 ? 1 : 0;
+                } else params.weight = objectName.length() - space > 7 ? 1 : 0;
+            } else params.weight = objectName.length() > 7 ? 1 : 0;
 
-            answer[i].setOnClickListener(onCharacterAnswerClickListener);
+            tempTextview.setLayoutParams(params);
+            tempTextview.setMaxWidth(getResources().getDimensionPixelSize(R.dimen.character_size));
+            tempTextview.setText("");
+            tempTextview.setTextSize(20f);
+            tempTextview.setTextColor(Color.WHITE);
+            tempTextview.setBackgroundColor(Color.BLACK);
+            tempTextview.setGravity(Gravity.CENTER);
+
+            if (objectName.contains(" ")) {
+                if (i < space) {
+                    ll1.addView(tempTextview);
+                } else {
+                    ll2.addView(tempTextview);
+                }
+            } else ll1.addView(tempTextview);
+
+            tempTextview.setOnClickListener(onCharacterAnswerClickListener);
+
+            answer.add(tempTextview);
         }
 
         LinearLayout firstRow = (LinearLayout) findViewById(R.id.first_row);
@@ -313,6 +345,8 @@ public class singlePlayGame extends AppCompatActivity {
 
         params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.character_size_choice),
                 getResources().getDimensionPixelSize(R.dimen.character_size_choice));
+
+        params.weight = 1;
 
         ArrayList<Character> foot = new ArrayList<Character>();
 
@@ -377,10 +411,18 @@ public class singlePlayGame extends AppCompatActivity {
                 Intent hintsIntent = new Intent(singlePlayGame.this, hints.class);
 
                 hintsIntent.putExtra("add char", 5);
-                hintsIntent.putExtra("remove char", 5);
                 hintsIntent.putExtra("number of chars", objectName.length());
 
                 startActivity(hintsIntent);
+            }
+        });
+
+        TextView confirmButton = (TextView) findViewById(R.id.confirm);
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkAnswer();
             }
         });
 
@@ -392,72 +434,18 @@ public class singlePlayGame extends AppCompatActivity {
             int index = answerNum[i];
 
             if (index < charactersPerRow) {
-                firstR[index].setText(answer[i].getText());
+                firstR[index].setText(answer.get(i).getText());
             } else {
-                secondR[index - charactersPerRow].setText(answer[i].getText());
+                secondR[index - charactersPerRow].setText(answer.get(i).getText());
             }
 
-            answer[i].setText("");
+            answer.get(i).setText("");
         }
 
         num = 0;
     }
 
-    private void makeHint1(int charsToDelete) {
-        String tempName = objectName;
-
-        int iter = 0;
-
-        for (int i = 0; i < charactersPerRow * 2; i++) {
-            if (i < charactersPerRow && iter < charsToDelete) {
-                String oneChar = firstR[i].getText().toString();
-
-                if (tempName.contains(oneChar)) {
-                    tempName = tempName.replaceFirst(oneChar, "");
-                } else {
-                    firstR[i].setText("");
-                    iter++;
-                }
-
-            } else if (iter < charsToDelete) {
-                String oneChar = secondR[i - charactersPerRow].getText().toString();
-
-                if (tempName.contains(oneChar)) {
-                    tempName = tempName.replaceFirst(oneChar, "");
-                } else {
-                    secondR[i - charactersPerRow].setText("");
-                    iter++;
-                }
-            }
-        }
-    }
-
-    private void makeHint2() {
-        String tempName = objectName;
-
-        for (int i = 0; i < charactersPerRow * 2; i++) {
-            if (i < charactersPerRow) {
-                String oneChar = firstR[i].getText().toString();
-
-                if (tempName.contains(oneChar)) {
-                    tempName = tempName.replaceFirst(oneChar, "");
-                } else {
-                    firstR[i].setText("");
-                }
-
-            } else {
-                String oneChar = secondR[i - charactersPerRow].getText().toString();
-
-                if (tempName.contains(oneChar)) {
-                    tempName = tempName.replaceFirst(oneChar, "");
-                } else {
-                    secondR[i - charactersPerRow].setText("");
-                }
-            }
-        }
-    }
-
-    private void makeHint3(int charsToAdd) {
+    private void makeHint1(int charsToAdd) {
         String tempName = objectName;
 
         for (int i = 0; i < charsToAdd; i++) {
@@ -467,7 +455,7 @@ public class singlePlayGame extends AppCompatActivity {
                 if (j < charactersPerRow) {
                     if (firstR[j].getText().length() > 0 &&
                             firstR[j].getText().charAt(0) == currentChar) {
-                        answer[num].setText(firstR[j].getText().toString());
+                        answer.get(num).setText(firstR[j].getText().toString());
                         answerNum[i] = j;
                         firstR[j].setText("");
                         num++;
@@ -476,7 +464,7 @@ public class singlePlayGame extends AppCompatActivity {
                 } else {
                     if (secondR[j - charactersPerRow].getText().length() > 0 &&
                             secondR[j - charactersPerRow].getText().charAt(0) == currentChar) {
-                        answer[num].setText(secondR[j - charactersPerRow].getText().toString());
+                        answer.get(num).setText(secondR[j - charactersPerRow].getText().toString());
                         answerNum[i] = j;
                         secondR[j - charactersPerRow].setText("");
                         num++;
@@ -487,7 +475,8 @@ public class singlePlayGame extends AppCompatActivity {
         }
     }
 
-    private void makeHint4() {
+    private void makeHint2() {
+
         String tempName = objectName;
 
         for (int i = 0; i < tempName.length(); i++) {
@@ -497,7 +486,7 @@ public class singlePlayGame extends AppCompatActivity {
                 if (j < charactersPerRow) {
                     if (firstR[j].getText().length() > 0 &&
                             firstR[j].getText().charAt(0) == currentChar) {
-                        answer[i].setText(firstR[j].getText());
+                        answer.get(i).setText(firstR[j].getText());
                         answerNum[i] = j;
                         firstR[j].setText("");
                         num++;
@@ -506,7 +495,7 @@ public class singlePlayGame extends AppCompatActivity {
                 } else {
                     if (secondR[j - charactersPerRow].getText().length() > 0 &&
                             secondR[j - charactersPerRow].getText().charAt(0) == currentChar) {
-                        answer[i].setText(secondR[j - charactersPerRow].getText());
+                        answer.get(i).setText(secondR[j - charactersPerRow].getText());
                         answerNum[i] = j;
                         secondR[j - charactersPerRow].setText("");
                         num++;
@@ -537,18 +526,6 @@ public class singlePlayGame extends AppCompatActivity {
             makeHint2();
 
             database.updateVariable(hint2, 0);
-        }
-
-        if (database.getVariableValue(hint3) != 0) {
-            makeHint3(database.getVariableValue(hint3));
-
-            database.updateVariable(hint3, 0);
-        }
-
-        if (database.getVariableValue(hint4) != 0) {
-            makeHint4();
-
-            database.updateVariable(hint4, 0);
         }
     }
 }

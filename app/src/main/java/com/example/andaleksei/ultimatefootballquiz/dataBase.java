@@ -20,8 +20,8 @@ import static android.R.attr.name;
  */
 
 public class dataBase {
+
     private static dataBaseHelper dbHelper;
-    // completed items in each mode
 
     private List<String> tableNames;
 
@@ -244,4 +244,5 @@ public class dataBase {
         db.update(dbHelper.TABLE_NAME_VARIABLES, contentValues,
                 dataBaseHelper.NAME + " = ?", new String[]{name});
     }
+
 }

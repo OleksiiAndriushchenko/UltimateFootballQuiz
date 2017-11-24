@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import static android.R.attr.data;
@@ -38,6 +39,12 @@ public class myAdapter extends BaseAdapter {
         }
 
         textview = (TextView) convertView.findViewById(R.id.textview);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                context.getResources().getDimensionPixelSize(R.dimen.character_size),
+                context.getResources().getDimensionPixelSize(R.dimen.character_size));
+
+        int margin = context.getResources().getDimensionPixelSize(R.dimen.margin_normal);
 
         dataBase database = new dataBase(context);
 

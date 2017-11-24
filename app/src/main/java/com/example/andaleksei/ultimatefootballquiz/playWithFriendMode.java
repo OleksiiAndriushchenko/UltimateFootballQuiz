@@ -21,16 +21,6 @@ public class playWithFriendMode extends AppCompatActivity {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/SEASRN__.ttf");
 
-        TextView playWithFriendMode = (TextView) findViewById(R.id.playWithFriendMode);
-
-        playWithFriendMode.setTypeface(custom_font);
-        playWithFriendMode.setShadowLayer(
-                10f, // radius
-                5.0f, // dx
-                5.0f, // dy
-                Color.parseColor("#FF3D803D") // shadow color
-        );
-
         database = new dataBase(this);
 
         TextView playButton = (TextView) findViewById(R.id.playButton);
@@ -44,31 +34,13 @@ public class playWithFriendMode extends AppCompatActivity {
         });
 
         playButton.setTypeface(custom_font);
-        playButton.setShadowLayer(
-                10f, // radius
-                5.0f, // dx
-                5.0f, // dy
-                Color.parseColor("#FF3D803D") // shadow color
-        );
 
         TextView howToPlayButton = (TextView) findViewById(R.id.howToPlay);
 
         howToPlayButton.setTypeface(custom_font);
-        howToPlayButton.setShadowLayer(
-                10f, // radius
-                5.0f, // dx
-                5.0f, // dy
-                Color.parseColor("#FF3D803D") // shadow color
-        );
 
         TextView settingsButton = (TextView) findViewById(R.id.settings);
 
         settingsButton.setTypeface(custom_font);
-        settingsButton.setShadowLayer(
-                10f, // radius
-                5.0f, // dx
-                5.0f, // dy
-                Color.parseColor("#FF3D803D") // shadow color
-        );
     }
 }
