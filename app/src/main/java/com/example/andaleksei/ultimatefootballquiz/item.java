@@ -30,6 +30,13 @@ public class item {
         this.completed = completed;
     }
 
+    item(item object) {
+        this.name = object.getName();
+        this.id = object.getId();
+        this.access = object.getAccess();
+        this.completed = object.getCompleted();
+    }
+
     // divide String int footballer name, clubs and years (transfer mode)
     public String divideString() {
         String tempName = name;

@@ -108,11 +108,10 @@
                 android:id="@+id/confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Confirm"
+                android:text="@string/ok"
                 android:textSize="20sp"
                 android:textColor="#fff"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_margin="8dp"
                 android:gravity="center"/>
 
         </LinearLayout>

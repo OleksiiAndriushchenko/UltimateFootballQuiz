@@ -130,7 +130,7 @@ public class dataBase {
             object.setCompleted(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.COMPLETED)));
 
             object.setAccess(1);
-            newItems.add(object);
+            newItems.add(new item(object));
         }
 
         db = dbHelper.getWritableDatabase();

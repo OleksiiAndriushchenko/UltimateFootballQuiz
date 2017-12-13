@@ -22,10 +22,21 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            style="@style/settings"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/main_menu"
         style="@style/textViewStyle"
-        android:text="Play"
+        android:text="@string/play"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

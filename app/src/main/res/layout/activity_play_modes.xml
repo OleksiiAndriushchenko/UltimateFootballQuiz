@@ -14,12 +14,12 @@
 
         <TextView
             android:id="@+id/single_play"
-            android:text="single play"
+            android:text="@string/single_play"
             style="@style/textViewStyle"/>
 
         <TextView
             android:id="@+id/play_with_friend"
-            android:text="play with friend"
+            android:text="@string/play_with_friend"
             style="@style/textViewStyle"/>
 
     </LinearLayout>
@@ -36,6 +36,17 @@
         <TextView
             android:id="@+id/coins"
             style="@style/coinsNumbers" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            style="@style/settings"/>
 
     </LinearLayout>
 

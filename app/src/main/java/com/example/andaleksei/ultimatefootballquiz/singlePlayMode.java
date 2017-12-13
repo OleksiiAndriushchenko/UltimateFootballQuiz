@@ -103,6 +103,8 @@ public class singlePlayMode extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        updateProgressBars();
+
         TextView coins = (TextView) findViewById(R.id.coins);
 
         coins.setText("" + database.getVariableValue(COINS));

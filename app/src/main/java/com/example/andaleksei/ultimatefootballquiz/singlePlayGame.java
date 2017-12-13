@@ -194,6 +194,9 @@ public class singlePlayGame extends AppCompatActivity {
 
         database = new dataBase(this);
 
+        database.updateVariable(hint1, 0);
+        database.updateVariable(hint2, 0);
+
         Intent intent = getIntent();
 
         gameMode = intent.getIntExtra("game mode", -1);
@@ -290,7 +293,7 @@ public class singlePlayGame extends AppCompatActivity {
 
         image.setImageResource(resID);
         if (gameMode == 1 || gameMode == 4) {
-            image.setBackgroundColor(Color.WHITE);
+            image.setBackgroundColor(Color.parseColor("#FDD835"));
         }
 
         LinearLayout ll1 = (LinearLayout) findViewById(R.id.answer1);
@@ -410,7 +413,7 @@ public class singlePlayGame extends AppCompatActivity {
             public void onClick(View v) {
                 Intent hintsIntent = new Intent(singlePlayGame.this, hints.class);
 
-                hintsIntent.putExtra("add char", 5);
+                hintsIntent.putExtra("add char", 10);
                 hintsIntent.putExtra("number of chars", objectName.length());
 
                 startActivity(hintsIntent);
@@ -516,16 +519,10 @@ public class singlePlayGame extends AppCompatActivity {
 
         clearAnswer();
 
-        if (database.getVariableValue(hint1) != 0) {
+        if (database.getVariableValue(hint1) != 0)
             makeHint1(database.getVariableValue(hint1));
 
-            database.updateVariable(hint1, 0);
-        }
-
-        if (database.getVariableValue(hint2) != 0) {
+        if (database.getVariableValue(hint2) != 0)
             makeHint2();
-
-            database.updateVariable(hint2, 0);
-        }
     }
 }

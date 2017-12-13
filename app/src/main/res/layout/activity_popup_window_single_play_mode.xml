@@ -7,6 +7,7 @@
     android:background="@drawable/background_grad"
     tools:context="com.example.andaleksei.ultimatefootballquiz.popupWindowSinglePlayMode">
 
+
     <TextView
         android:id="@+id/phrase"
         android:layout_width="wrap_content"
@@ -19,18 +20,18 @@
 
     <TextView
         android:id="@+id/level"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/circular_background"
         android:gravity="center"
-        android:text="level\n1"
+        android:text="Level\n1"
         android:textSize="30dp"
+        android:textColor="#fff"
         android:layout_above="@id/phrase"
         android:layout_marginBottom="16dp"/>
 
     <TextView
-        android:id="@+id/coins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+ 25 coins"
@@ -38,22 +39,5 @@
         android:layout_centerHorizontal="true"
         android:textSize="30dp"
         android:textColor="#ffffff"/>
-
-    <Button
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:text="Next level"/>
-
-    <Button
-        android:id="@+id/returnPopup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:text="Return"/>
-
 
 </RelativeLayout>

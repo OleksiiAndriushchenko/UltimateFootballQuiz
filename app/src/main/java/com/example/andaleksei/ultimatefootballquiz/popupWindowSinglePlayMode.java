@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static com.example.andaleksei.ultimatefootballquiz.R.id.returnButton;
 
 public class popupWindowSinglePlayMode extends AppCompatActivity {
@@ -14,6 +17,8 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
     private Intent currentIntent;
 
     private dataBase database;
+
+    private Timer timer;
 
     private final String COINS = "coins";
 
@@ -26,45 +31,39 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
         database = new dataBase(this);
 
         TextView level = (TextView) findViewById(R.id.level);
+        TextView coins = (TextView) findViewById(R.id.coins);
 
-        int completedItem = currentIntent.getIntExtra("choosen item", -1) - 1;
-        int tableId = currentIntent.getIntExtra("game mode", -1);
+        final int completedItem = currentIntent.getIntExtra("choosen item", -1) - 1;
+        final int tableId = currentIntent.getIntExtra("game mode", -1);
 
         level.setText("level\n" + completedItem);
 
-        Button continueButton = (Button) findViewById(R.id.next);
+        final String table = database.getTableName(tableId);
 
-        String table = database.getTableName(tableId);
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
 
-        if (completedItem < database.getLastUnlockedItem(table)) {
-            continueButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void run() {
+
+                if (completedItem < database.getLastUnlockedItem(table)) {
                     Intent singlePlayGame = new Intent(popupWindowSinglePlayMode.this,
                             com.example.andaleksei.ultimatefootballquiz.singlePlayGame.class);
 
-                    singlePlayGame.putExtra("game mode", currentIntent.getIntExtra("game mode", -1));
-                    singlePlayGame
-                            .putExtra("choosen item", currentIntent.getIntExtra("choosen item", -1));
-
-                    popupWindowSinglePlayMode.this.finish();
+                    singlePlayGame.putExtra(
+                            "game mode",
+                             currentIntent.getIntExtra("game mode", -1));
+                    singlePlayGame.putExtra(
+                            "choosen item",
+                             currentIntent.getIntExtra("choosen item", -1));
 
                     startActivity(singlePlayGame);
                 }
-            });
-        } else {
-            continueButton.setVisibility(Button.INVISIBLE);
-        }
 
-        Button returnButton = (Button) findViewById(R.id.returnPopup);
-
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                popupWindowSinglePlayMode.this.finish();
-
+                finish();
             }
-        });
+        }, 2000);
+
+
     }
 }

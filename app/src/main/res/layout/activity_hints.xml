@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@drawable/background_grad"
-    android:orientation="vertical">
+    android:background="@drawable/background_grad">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            style="@style/coins"/>
+
+        <TextView
+            android:id="@+id/coins"
+            style="@style/coinsNumbers" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            style="@style/settings"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/containerHint1"
@@ -14,7 +39,8 @@
         android:background="@drawable/selector"
         android:layout_margin="8dp"
         android:clickable="true"
-        android:addStatesFromChildren="true">
+        android:addStatesFromChildren="true"
+        android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/hint1"
@@ -34,6 +60,8 @@
         android:id="@+id/containerHint2"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
+        android:layout_below="@id/containerHint1"
+        android:layout_centerInParent="true"
         android:orientation="horizontal"
         android:background="@drawable/textview_frame_normal"
         android:layout_margin="8dp">
@@ -51,4 +79,4 @@
 
     </LinearLayout>
     
-</LinearLayout>
+</RelativeLayout>

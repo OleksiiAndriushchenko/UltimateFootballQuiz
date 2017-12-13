@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">UltimateFootballQuiz</string>
+    <string name="play">play</string>
+    <string name="single_play">single play</string>
+    <string name="play_with_friend">play with friend</string>
+    <string name="players">Players</string>
+    <string name="clubs">Clubs</string>
+    <string name="transfers">Transfers</string>
+    <string name="legends">Legends</string>
+    <string name="ok"> OK</string>
+    <string name="hint1">Hint one letter -  </string>
+    <string name="hint2">Hint the whole word -  </string>
+    <string name="settings">settings</string>
+    <string name="how_to_play">how to play ?</string>
 </resources>
