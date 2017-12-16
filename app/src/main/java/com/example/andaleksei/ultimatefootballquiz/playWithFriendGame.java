@@ -3,6 +3,7 @@ package com.example.andaleksei.ultimatefootballquiz;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -161,6 +162,40 @@ public class playWithFriendGame extends AppCompatActivity {
         }
     }
 
+    private class myCountDownTimer extends CountDownTimer {
+
+        public myCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+            long seconds = millisUntilFinished / 1000;
+
+            TextView countDownUp = (TextView) findViewById(R.id.countdownUp);
+
+            TextView countDownDown = (TextView) findViewById(R.id.countdownDown);
+
+            countDownUp.setText(String.valueOf(seconds));
+            countDownDown.setText(String.valueOf(seconds));
+        }
+
+        @Override
+        public void onFinish() {
+            LinearLayout window = (LinearLayout) findViewById(R.id.allWindow);
+
+            window.setVisibility(View.VISIBLE);
+
+            TextView countDownUp = (TextView) findViewById(R.id.countdownUp);
+
+            TextView countDownDown = (TextView) findViewById(R.id.countdownDown);
+
+            countDownUp.setVisibility(View.GONE);
+            countDownDown.setVisibility(View.GONE);
+        }
+    }
+
     private View.OnClickListener onPlayerAnswerClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -270,6 +305,13 @@ public class playWithFriendGame extends AppCompatActivity {
         Collections.shuffle(opponentChoosenFootballers);
 
         initialConditions();
+
+        myCountDownTimer countDownTimer = new myCountDownTimer(3500, 500);
+        countDownTimer.start();
+
+        LinearLayout window = (LinearLayout) findViewById(R.id.allWindow);
+
+        window.setVisibility(View.GONE);
 
         setOnClickListeners();
     }

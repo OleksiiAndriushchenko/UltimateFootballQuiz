@@ -53,11 +53,9 @@
     <style name="bulb">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_weight">1.5</item>
         <item name="android:src">@drawable/bulb</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
     </style>
 
     <style name="coins">

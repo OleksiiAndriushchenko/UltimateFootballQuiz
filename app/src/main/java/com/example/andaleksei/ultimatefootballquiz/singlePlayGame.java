@@ -60,8 +60,12 @@ public class singlePlayGame extends AppCompatActivity {
         public void onClick(View v) {
             TextView clickedView = (TextView) v;
 
-            if (num < wordLength && !clickedView.getText().toString().equals("")) {
-                answer.get(num).setText(clickedView.getText());
+            if (num < wordLength && !clickedView.getText().equals("")) {
+
+                int position = firstEmptyCharachter();
+
+                answer.get(position).setText(clickedView.getText());
+
                 clickedView.setText("");
 
                 int i = 0;
@@ -69,11 +73,11 @@ public class singlePlayGame extends AppCompatActivity {
                 do {
                     if (i < charactersPerRow) {
                         if (clickedView.equals(firstR[i])) {
-                            answerNum[num] = i;
+                            answerNum[position] = i;
                         }
                     } else {
                         if (clickedView.equals(secondR[i - charactersPerRow])) {
-                            answerNum[num] = i;
+                            answerNum[position] = i;
                         }
                     }
                 } while (++i < charactersPerRow * 2);
@@ -89,13 +93,18 @@ public class singlePlayGame extends AppCompatActivity {
         public void onClick(View v) {
             TextView clickedView = (TextView) v;
 
-            if (num > 0 && clickedView.equals(answer.get(num - 1))) {
-                if (answerNum[num - 1] < charactersPerRow) {
-                    firstR[answerNum[num - 1]].setText(clickedView.getText());
+            int position = positionOfCharachter(clickedView);
+            CharSequence text = answer.get(position).getText();
+
+            if (num > 0 && !text.equals("")) {
+                if (answerNum[position] < charactersPerRow) {
+                    firstR[answerNum[position]].setText(clickedView.getText());
                 } else {
-                    secondR[answerNum[num - 1] - charactersPerRow].setText(clickedView.getText());
+                    secondR[answerNum[position] - charactersPerRow].setText(clickedView.getText());
                 }
+
                 clickedView.setText("");
+
                 num--;
             }
         }
@@ -124,6 +133,25 @@ public class singlePlayGame extends AppCompatActivity {
             }
         }
     };
+
+    private int firstEmptyCharachter() {
+        for (int i = 0; i < answer.size(); i++) {
+            if (answer.get(i).getText().equals(""))
+                return i;
+        }
+
+        return -1;
+    }
+
+    private int positionOfCharachter(TextView clickedView) {
+        for (int i = 0; i < answer.size(); i++) {
+            if (clickedView.equals(answer.get(i))) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 
     private void randomizeArray(ArrayList<Character> arrayToRandom) {
         Random random = new Random();
@@ -443,9 +471,9 @@ public class singlePlayGame extends AppCompatActivity {
             }
         });
 
-        TextView confirmButton = (TextView) findViewById(R.id.confirm);
+        ImageView ok = (ImageView) findViewById(R.id.ok);
 
-        confirmButton.setOnClickListener(new View.OnClickListener() {
+        ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer();
