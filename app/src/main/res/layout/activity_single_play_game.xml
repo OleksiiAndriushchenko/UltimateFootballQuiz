@@ -7,7 +7,7 @@
     android:background="@drawable/background_grad">
 
     <LinearLayout
-        android:id="@+id/coins_container"
+        android:id="@+id/coinsContainer"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:orientation="horizontal"
@@ -23,11 +23,23 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:id="@+id/settings"
+            style="@style/settings"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/parent"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/coins_container">
+        android:layout_below="@id/coinsContainer">
 
         <LinearLayout
             android:id="@+id/clubs"
@@ -37,6 +49,7 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:gravity="center">
+
         </LinearLayout>
 
 
@@ -76,7 +89,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="6"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -106,8 +119,9 @@
 
             <TextView
                 android:id="@+id/confirm"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="@string/ok"
                 android:textSize="20sp"
                 android:textColor="#fff"

@@ -1,6 +1,7 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,13 +23,35 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
 
     private final String COINS = "coins";
 
+    private void setFont() {
+
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),
+                getResources().getString(R.string.font));
+
+        TextView tv = (TextView) findViewById(R.id.level);
+
+        tv.setTypeface(custom_font);
+
+        tv = (TextView) findViewById(R.id.phrase);
+
+        tv.setTypeface(custom_font);
+
+        tv = (TextView) findViewById(R.id.addCoins);
+
+        tv.setTypeface(custom_font);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_popup_window_single_play_mode);
 
         currentIntent = getIntent();
+
         database = new dataBase(this);
+
+        //setFont();
 
         TextView level = (TextView) findViewById(R.id.level);
         TextView coins = (TextView) findViewById(R.id.coins);

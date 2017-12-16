@@ -46,13 +46,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">4dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
     <style name="bulb">
-        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:src">@drawable/bulb</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginLeft">8dp</item>

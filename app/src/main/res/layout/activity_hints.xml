@@ -5,6 +5,7 @@
     android:background="@drawable/background_grad">
 
     <LinearLayout
+        android:id="@+id/coinsContainer"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:orientation="horizontal"
@@ -27,6 +28,7 @@
         android:layout_alignParentStart="true">
 
         <ImageView
+            android:id="@+id/settings"
             style="@style/settings"/>
 
     </LinearLayout>

@@ -1,10 +1,12 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -123,6 +125,28 @@ public class hints extends AppCompatActivity {
                 }
             });
         }
+
+        ImageView settings = (ImageView) findViewById(R.id.settings);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingsIntent = new Intent(hints.this, settings.class);
+
+                startActivity(settingsIntent);
+            }
+        });
+
+        LinearLayout coinsContainer = (LinearLayout) findViewById(R.id.coinsContainer);
+
+        coinsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent coinsIntent = new Intent(hints.this, coins.class);
+
+                startActivity(coinsIntent);
+            }
+        });
 
     }
 }

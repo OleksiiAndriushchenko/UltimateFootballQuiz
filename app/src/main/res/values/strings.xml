@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UltimateFootballQuiz</string>
+    <string name="app_name">Ultimate Football Quiz</string>
     <string name="play">play</string>
     <string name="single_play">single play</string>
     <string name="play_with_friend">play with friend</string>
@@ -11,5 +11,17 @@
     <string name="hint1">Hint one letter -  </string>
     <string name="hint2">Hint the whole word -  </string>
     <string name="settings">settings</string>
+    <string name="options">options</string>
     <string name="how_to_play">how to play ?</string>
+    <string name="font">fonts/simpler.ttf</string>
+    <string name="right">Rights</string>
+    <string name="policy">Privacy policy</string>
+    <string name="rateApp">Rate app</string>
+    <string name="video">Watch video</string>
+    <string name="coins">coins</string>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
 </resources>

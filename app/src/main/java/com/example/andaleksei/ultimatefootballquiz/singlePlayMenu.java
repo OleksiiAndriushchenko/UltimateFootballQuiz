@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +54,7 @@ public class singlePlayMenu extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 position++;
+
                 if (position <= currentObjectId) {
                     Intent singlePlayGameIntent = new Intent(singlePlayMenu.this, singlePlayGame.class);
 
@@ -59,10 +62,29 @@ public class singlePlayMenu extends Activity {
                     singlePlayGameIntent.putExtra("choosen item", position);
 
                     startActivity(singlePlayGameIntent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "You cann't choose locked item!!!",
-                            Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        ImageView settings = (ImageView) findViewById(R.id.settings);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingsIntent = new Intent(singlePlayMenu.this, settings.class);
+
+                startActivity(settingsIntent);
+            }
+        });
+
+        LinearLayout coinsContainer = (LinearLayout) findViewById(R.id.coinsContainer);
+
+        coinsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent coinsIntent = new Intent(singlePlayMenu.this, coins.class);
+
+                startActivity(coinsIntent);
             }
         });
 

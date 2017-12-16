@@ -17,6 +17,7 @@
         android:layoutAnimation="@anim/grid_layout_animation"/>
 
     <LinearLayout
+        android:id="@+id/coinsContainer"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:orientation="horizontal"
@@ -28,6 +29,18 @@
         <TextView
             android:id="@+id/coins"
             style="@style/coinsNumbers" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:id="@+id/settings"
+            style="@style/settings"/>
 
     </LinearLayout>
 

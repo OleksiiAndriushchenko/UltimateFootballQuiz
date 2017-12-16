@@ -1,10 +1,13 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,6 +40,52 @@ public class singlePlayMode extends AppCompatActivity {
         }
     }
 
+    private void setFont() {
+
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),
+                getResources().getString(R.string.font));
+
+        TextView textview = (TextView) findViewById(R.id.textViewFootballers);
+
+        textview.setTypeface(custom_font);
+
+        textview = (TextView) findViewById(R.id.textViewClubs);
+
+        textview.setTypeface(custom_font);
+
+        textview = (TextView) findViewById(R.id.textViewTransfers);
+
+        textview.setTypeface(custom_font);
+
+        textview = (TextView) findViewById(R.id.textViewLegends);
+
+        textview.setTypeface(custom_font);
+    }
+
+    private void setPhotoToLegends() {
+        LinearLayout legendContainer = (LinearLayout) findViewById(R.id.legend);
+        ImageView legendPhoto = (ImageView) findViewById(R.id.legendPhoto);
+
+        if (database.getLastUnlockedItem("legendTable") >= 1) {
+            legendContainer.setBackgroundColor(Color.parseColor("#FDD835"));
+            legendPhoto.setImageResource(R.drawable.henry);
+
+            legendContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent singlePlayMenuIntent = new Intent(singlePlayMode.this, singlePlayMenu.class);
+
+                    singlePlayMenuIntent.putExtra("game mode", 4);
+
+                    startActivity(singlePlayMenuIntent);
+                }
+            });
+        } else {
+            legendContainer.setBackgroundColor(Color.TRANSPARENT);
+            legendPhoto.setImageResource(R.drawable.lock);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +94,10 @@ public class singlePlayMode extends AppCompatActivity {
         database = new dataBase(this);
 
         updateProgressBars();
+
+        setFont();
+
+        setPhotoToLegends();
 
         LinearLayout playersButton = (LinearLayout) findViewById(R.id.players);
         playersButton.setOnClickListener(new View.OnClickListener() {
@@ -82,15 +135,25 @@ public class singlePlayMode extends AppCompatActivity {
             }
         });
 
-        LinearLayout  legendButton = (LinearLayout) findViewById(R.id.legend);
-        legendButton.setOnClickListener(new View.OnClickListener() {
+        ImageView settings = (ImageView) findViewById(R.id.settings);
+
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent singlePlayMenuIntent = new Intent(singlePlayMode.this, singlePlayMenu.class);
+                Intent settingsIntent = new Intent(singlePlayMode.this, settings.class);
 
-                singlePlayMenuIntent.putExtra("game mode", 4);
+                startActivity(settingsIntent);
+            }
+        });
 
-                startActivity(singlePlayMenuIntent);
+        LinearLayout coinsContainer = (LinearLayout) findViewById(R.id.coinsContainer);
+
+        coinsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent coinsIntent = new Intent(singlePlayMode.this, coins.class);
+
+                startActivity(coinsIntent);
             }
         });
 
@@ -104,6 +167,8 @@ public class singlePlayMode extends AppCompatActivity {
         super.onResume();
 
         updateProgressBars();
+
+        setPhotoToLegends();
 
         TextView coins = (TextView) findViewById(R.id.coins);
 

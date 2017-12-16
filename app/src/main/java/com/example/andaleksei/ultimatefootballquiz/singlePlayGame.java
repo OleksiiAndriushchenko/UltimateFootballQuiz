@@ -153,9 +153,11 @@ public class singlePlayGame extends AppCompatActivity {
 
                 database.setCompleted(tableName, currentObject);
 
-                if (database.reachThreshold(gameMode)) {
+                if (database.reachThreshold(gameMode))
                     database.unlockNextItem(tableName, 10);
-                }
+
+                if (database.canOpenLegends())
+                    database.openLegends();
             }
 
             Intent popupWindow = new Intent(
@@ -207,13 +209,13 @@ public class singlePlayGame extends AppCompatActivity {
         itemIndex = intent.getIntExtra("choosen item", -1);
 
         currentObject = database.getData(itemIndex, tableName);
-        objectName = currentObject.getName();
+        objectName = currentObject.getName().toUpperCase();
 
         LinearLayout clubsRow = (LinearLayout) findViewById(R.id.clubs);
 
         // if mode is transfer then we should parse string
         if (tableName.compareTo("transferTable") == 0) {
-            objectName = currentObject.divideString();
+            objectName = currentObject.divideString().toUpperCase();
 
             int numberOfClubs = currentObject.getNumberOfClubs();
 
@@ -222,6 +224,7 @@ public class singlePlayGame extends AppCompatActivity {
 
             LinearLayout.LayoutParams layoutParamsClub = new LinearLayout.LayoutParams(clubSize, clubSize);
             layoutParamsClub.setMargins(8, 0, 8, 0);
+
             LinearLayout.LayoutParams layoutParamsArrow = new LinearLayout.LayoutParams(arrowSize, arrowSize);
 
             for (int i = 0; i < numberOfClubs; i++) {
@@ -240,6 +243,7 @@ public class singlePlayGame extends AppCompatActivity {
                 club.setLayoutParams(layoutParamsClub);
                 club.setPadding(4, 4, 4, 4);
                 club.setOnClickListener(onClubClickListener);
+                club.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 clubsRow.addView(club);
 
                 if (i == 0) {
@@ -247,7 +251,6 @@ public class singlePlayGame extends AppCompatActivity {
                     previousClub = club;
                 }
             }
-
         } else {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) clubsRow.getLayoutParams();
             params.weight = 0.0f;
@@ -274,7 +277,7 @@ public class singlePlayGame extends AppCompatActivity {
         int resID;
 
         if (gameMode != 3) {
-            Resources res = getResources();
+
             if (gameMode == 2) {
                 resID = getResourceId(currentObject.getName() + "_edited");
 
@@ -299,27 +302,25 @@ public class singlePlayGame extends AppCompatActivity {
         LinearLayout ll1 = (LinearLayout) findViewById(R.id.answer1);
         LinearLayout ll2 = (LinearLayout) findViewById(R.id.answer2);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                getResources().getDimensionPixelSize(R.dimen.character_size),
-                getResources().getDimensionPixelSize(R.dimen.character_size));
+        LinearLayout.LayoutParams params;
+
+        TextView tempTextview;
 
         for (int i = 0; i < wordLength; ++i) {
 
-            TextView tempTextview = new TextView(this);
+            tempTextview = new TextView(this);
 
-            if (i  == 0) {
-                params.setMargins(0, 0, 8, 0);
-            } else if (i == wordLength - 1) {
-                params.setMargins(8, 0, 0, 0);
-            } else params.setMargins(8, 0, 8, 0);
+            params = new LinearLayout.LayoutParams(
+                    getResources().getDimensionPixelSize(R.dimen.character_size),
+                    getResources().getDimensionPixelSize(R.dimen.character_size));
 
-            params.weight = objectName.length() > 7 ? 1 : 0;
+            params.setMargins(8, 0, 8, 0);
 
             if (objectName.contains(" ")) {
                 if (i < space) {
-                    params.weight = space > 7 ? 1 : 0;
+                    params.weight = (space > 7) ? 1 : 0;
                 } else params.weight = objectName.length() - space > 7 ? 1 : 0;
-            } else params.weight = objectName.length() > 7 ? 1 : 0;
+            } else params.weight = objectName.length() > 6 ? 1 : 0;
 
             tempTextview.setLayoutParams(params);
             tempTextview.setMaxWidth(getResources().getDimensionPixelSize(R.dimen.character_size));
@@ -380,8 +381,8 @@ public class singlePlayGame extends AppCompatActivity {
             firstR[i].setLayoutParams(params);
             secondR[i].setLayoutParams(params);
 
-            firstR[i].setText(new String(new char[] {foot.get(i)} ));
-            secondR[i].setText(new String(new char[] {foot.get(i + charactersPerRow)} ));
+            firstR[i].setText(foot.get(i).toString().toUpperCase());
+            secondR[i].setText(foot.get(i + charactersPerRow).toString().toUpperCase());
 
             firstR[i].setTextSize(20f);
             secondR[i].setTextSize(20f);
@@ -417,6 +418,28 @@ public class singlePlayGame extends AppCompatActivity {
                 hintsIntent.putExtra("number of chars", objectName.length());
 
                 startActivity(hintsIntent);
+            }
+        });
+
+        ImageView settings = (ImageView) findViewById(R.id.settings);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingsIntent = new Intent(singlePlayGame.this, settings.class);
+
+                startActivity(settingsIntent);
+            }
+        });
+
+        LinearLayout coinsContainer = (LinearLayout) findViewById(R.id.coinsContainer);
+
+        coinsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent coinsIntent = new Intent(singlePlayGame.this, coins.class);
+
+                startActivity(coinsIntent);
             }
         });
 

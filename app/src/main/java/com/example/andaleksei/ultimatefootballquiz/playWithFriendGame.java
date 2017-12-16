@@ -2,6 +2,7 @@ package com.example.andaleksei.ultimatefootballquiz;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -257,6 +258,7 @@ public class playWithFriendGame extends AppCompatActivity {
         opponentPhoto = (ImageView) findViewById(R.id.opponentPhoto);
 
         int size = database.getLastUnlockedItem("footballerTable");
+
         allFootballers = new ArrayList<item>();
 
         for (int i = 1; i <= size; i++) {
