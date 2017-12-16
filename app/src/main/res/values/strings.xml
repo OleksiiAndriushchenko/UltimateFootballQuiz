@@ -1,27 +1,46 @@
 <resources>
     <string name="app_name">Ultimate Football Quiz</string>
-    <string name="play">play</string>
-    <string name="single_play">single play</string>
-    <string name="play_with_friend">play with friend</string>
-    <string name="players">Players</string>
-    <string name="clubs">Clubs</string>
-    <string name="transfers">Transfers</string>
-    <string name="legends">Legends</string>
-    <string name="ok"> OK</string>
-    <string name="hint1">Hint one letter -  </string>
-    <string name="hint2">Hint the whole word -  </string>
-    <string name="settings">settings</string>
-    <string name="options">options</string>
-    <string name="how_to_play">how to play ?</string>
     <string name="font">fonts/simpler.ttf</string>
-    <string name="right">Rights</string>
-    <string name="policy">Privacy policy</string>
-    <string name="rateApp">Rate app</string>
-    <string name="video">Watch video</string>
     <string name="coins">coins</string>
+
+    <string name="play_en">play</string>
+    <string name="single_play_en">single play</string>
+    <string name="play_with_friend_en">play with friend</string>
+    <string name="players_en">Players</string>
+    <string name="clubs_en">Clubs</string>
+    <string name="transfers_en">Transfers</string>
+    <string name="legends_en">Legends</string>
+    <string name="ok_en"> OK</string>
+    <string name="hint1_en">Hint one letter -  </string>
+    <string name="hint2_en">Hint the whole word -  </string>
+    <string name="settings_en">settings</string>
+    <string name="options_en">options</string>
+    <string name="how_to_play_en">how to play ?</string>
+    <string name="rights_en">Rights</string>
+    <string name="policy_en">Privacy policy</string>
+    <string name="rateApp_en">Rate app</string>
+    <string name="video_en">Watch video</string>
+
+    <string name="play_ru">играть</string>
+    <string name="single_play_ru">одиночная игра</string>
+    <string name="play_with_friend_ru">играть с другом</string>
+    <string name="players_ru">Игроки</string>
+    <string name="clubs_ru">Клубы</string>
+    <string name="transfers_ru">Трансферы</string>
+    <string name="legends_ru">Легенды</string>
+    <string name="ok_ru">ОК</string>
+    <string name="hint1_ru">Угадать одну букву -  </string>
+    <string name="hint2_ru">Угадать всё слово -  </string>
+    <string name="settings_ru">Настройки</string>
+    <string name="options_ru">Настройки</string>
+    <string name="how_to_play_ru">как играть ?</string>
+    <string name="rights_ru">Права</string>
+    <string name="policy_ru">Политика конфиденциальности</string>
+    <string name="rateApp_ru">Оценить игру</string>
+    <string name="video_ru">Посмотреть видео</string>
 
     <string-array name="languages">
         <item>English</item>
-        <item>Russian</item>
+        <item>Русский</item>
     </string-array>
 </resources>

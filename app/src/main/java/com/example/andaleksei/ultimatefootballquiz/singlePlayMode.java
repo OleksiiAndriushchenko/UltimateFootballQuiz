@@ -19,6 +19,10 @@ public class singlePlayMode extends AppCompatActivity {
 
     private dataBase database;
 
+    stringAdapter myStringAdapter;
+
+    private TextView players, clubs, transfers, legends;
+
     private final String drawable = "drawable";
     private final String COINS = "coins";
 
@@ -45,21 +49,23 @@ public class singlePlayMode extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 getResources().getString(R.string.font));
 
-        TextView textview = (TextView) findViewById(R.id.textViewFootballers);
+        players.setTypeface(custom_font);
 
-        textview.setTypeface(custom_font);
+        clubs.setTypeface(custom_font);
 
-        textview = (TextView) findViewById(R.id.textViewClubs);
+        transfers.setTypeface(custom_font);
 
-        textview.setTypeface(custom_font);
+        legends.setTypeface(custom_font);
+    }
+    
+    private void setText() {
+        players.setText(myStringAdapter.getString(this, "players"));
 
-        textview = (TextView) findViewById(R.id.textViewTransfers);
+        clubs.setText(myStringAdapter.getString(this, "clubs"));
 
-        textview.setTypeface(custom_font);
+        transfers.setText(myStringAdapter.getString(this, "transfers"));
 
-        textview = (TextView) findViewById(R.id.textViewLegends);
-
-        textview.setTypeface(custom_font);
+        legends.setText(myStringAdapter.getString(this, "legends"));
     }
 
     private void setPhotoToLegends() {
@@ -93,7 +99,16 @@ public class singlePlayMode extends AppCompatActivity {
 
         database = new dataBase(this);
 
+        myStringAdapter = new stringAdapter();
+
+        players = (TextView) findViewById(R.id.textViewFootballers);
+        clubs = (TextView) findViewById(R.id.textViewClubs);
+        transfers = (TextView) findViewById(R.id.textViewTransfers);
+        legends = (TextView) findViewById(R.id.textViewLegends);
+
         updateProgressBars();
+
+        setText();
 
         setFont();
 
@@ -167,6 +182,8 @@ public class singlePlayMode extends AppCompatActivity {
         super.onResume();
 
         updateProgressBars();
+
+        setText();
 
         setPhotoToLegends();
 

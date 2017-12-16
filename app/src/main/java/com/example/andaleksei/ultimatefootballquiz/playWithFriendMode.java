@@ -16,6 +16,18 @@ public class playWithFriendMode extends AppCompatActivity {
 
     private dataBase database;
 
+    private stringAdapter myStringAdapter;
+
+    TextView play, options, howToPlay;
+
+    private void setText() {
+        play.setText(myStringAdapter.getString(this, "play"));
+
+        options.setText(myStringAdapter.getString(this, "options"));
+
+        howToPlay.setText(myStringAdapter.getString(this, "how_to_play"));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +38,11 @@ public class playWithFriendMode extends AppCompatActivity {
 
         database = new dataBase(this);
 
-        TextView playButton = (TextView) findViewById(R.id.playButton);
-        playButton.setOnClickListener(new View.OnClickListener() {
+        myStringAdapter = new stringAdapter();
+
+        play = (TextView) findViewById(R.id.playButton);
+
+        play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent playWithFriendGameIntent = new Intent(playWithFriendMode.this, playWithFriendGame.class);
@@ -36,7 +51,17 @@ public class playWithFriendMode extends AppCompatActivity {
             }
         });
 
-        playButton.setTypeface(custom_font);
+        play.setTypeface(custom_font);
+
+        howToPlay = (TextView) findViewById(R.id.howToPlay);
+
+        howToPlay.setTypeface(custom_font);
+
+        options = (TextView) findViewById(R.id.options);
+
+        options.setTypeface(custom_font);
+
+        setText();
 
         ImageView settings = (ImageView) findViewById(R.id.settings);
 
@@ -60,16 +85,22 @@ public class playWithFriendMode extends AppCompatActivity {
             }
         });
 
-        TextView howToPlayButton = (TextView) findViewById(R.id.howToPlay);
-
-        howToPlayButton.setTypeface(custom_font);
-
-        TextView settingsButton = (TextView) findViewById(R.id.options);
-
-        settingsButton.setTypeface(custom_font);
-
         TextView coins = (TextView) findViewById(R.id.coins);
 
         coins.setText("" + database.getVariableValue(getResources().getString(R.string.coins)));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setText();
+
+        TextView coins = (TextView) findViewById(R.id.coins);
+
+        String numberOfCoins = String.valueOf(
+                database.getVariableValue(getResources().getString(R.string.coins)));
+
+        coins.setText(numberOfCoins);
     }
 }

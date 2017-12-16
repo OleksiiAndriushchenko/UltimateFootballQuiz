@@ -37,7 +37,7 @@
 37 wigan_athletic
 38 river_plate
 39 real_valladolid
-40 udinese
+40 eibar
 41 torino
 42 ajax
 43 deportivo
@@ -62,7 +62,7 @@
 62 bournemouth
 63 sporting_gijon
 64 fulham
-65 malaga
+65 parma
 66 villarreal
 67 besiktas
 68 getafe
@@ -112,11 +112,11 @@
 112 aberdeen
 113 stade_reims
 114 atalanta
-115 birmingham_city
+115 birmingham
 116 racing
 117 motherwell
 118 ipswich_town
-119 alaves
+119 hull_city
 120 hellas_verona
 121 bastia
 122 elche
@@ -124,7 +124,7 @@
 124 bradford_city
 125 palmeiras
 126 dynamo_kyiv
-127 reading
+127 lens
 128 reading
 129 dijon
 130 panathinaikos

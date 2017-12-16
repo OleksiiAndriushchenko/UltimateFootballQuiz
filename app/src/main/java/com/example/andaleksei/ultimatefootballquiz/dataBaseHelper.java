@@ -175,6 +175,7 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         insertVariable(db, "coins", 1);
         insertVariable(db, "add char", 2);
         insertVariable(db, "add chars", 3);
+        insertVariable(db, "language", 4);
 
     }
 

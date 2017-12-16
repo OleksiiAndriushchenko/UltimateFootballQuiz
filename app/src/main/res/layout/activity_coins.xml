@@ -16,12 +16,12 @@
 
         <TextView
             android:id="@+id/rate"
-            android:text="@string/rateApp"
+            android:text="@string/rateApp_en"
             style="@style/textViewStyle"/>
 
         <TextView
             android:id="@+id/video"
-            android:text="@string/video"
+            android:text="@string/video_en"
             style="@style/textViewStyle"/>
 
     </LinearLayout>

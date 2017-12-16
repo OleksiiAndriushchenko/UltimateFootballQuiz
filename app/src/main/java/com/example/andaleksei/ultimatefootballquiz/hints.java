@@ -17,6 +17,8 @@ public class hints extends AppCompatActivity {
 
     private dataBase database;
 
+    private stringAdapter myStringAdapter;
+
     private String hintPhrase1;
     private String hintPhrase2;
     private final String coins = "coins";
@@ -31,33 +33,49 @@ public class hints extends AppCompatActivity {
     private int addedChars;
     private int numberOfCoins;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hints);
+    private int addChar;
+    private int numberOfChars;
 
-        hintPhrase1 = getResources().getString(R.string.hint1);
-        hintPhrase2 = getResources().getString(R.string.hint2);
-
-        database = new dataBase(this);
+    private void setText() {
+        hintPhrase1 = myStringAdapter.getString(this, "hint1");
+        hintPhrase2 = myStringAdapter.getString(this, "hint2");
 
         numberOfCoins = database.getVariableValue(coins);
 
         addedChars = database.getVariableValue("add char");
 
-        final int addChar = getIntent().getIntExtra("add char", -1);
+        twCoins.setText(String.valueOf(numberOfCoins));
 
-        final int numberOfChars = getIntent().getIntExtra("number of chars", -1);
+        addChar = getIntent().getIntExtra("add char", -1);
+
+        numberOfChars = getIntent().getIntExtra("number of chars", -1);
+
+        hint1.setText(hintPhrase1 + addChar);
+
+        hint2.setText(hintPhrase2 + addChar * numberOfChars);
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hints);
+
+        database = new dataBase(this);
+
+        myStringAdapter = new stringAdapter();
 
         twCoins = (TextView) findViewById(R.id.coins);
-
-        twCoins.setText(String.valueOf(numberOfCoins));
 
         hint1 = (TextView) findViewById(R.id.hint1);
 
         containerHint1 = (LinearLayout) findViewById(R.id.containerHint1);
 
-        hint1.setText(hintPhrase1 + addChar);
+        hint2 = (TextView) findViewById(R.id.hint2);
+
+        containerHint2 = (LinearLayout) findViewById(R.id.containerHint2);
+
+        setText();
 
         if (numberOfCoins < addChar) {
             hint1.setTextColor(Color.parseColor("#455A64"));
@@ -92,12 +110,6 @@ public class hints extends AppCompatActivity {
                 }
             });
         }
-
-        hint2 = (TextView) findViewById(R.id.hint2);
-
-        containerHint2 = (LinearLayout) findViewById(R.id.containerHint2);
-
-        hint2.setText(hintPhrase2 + addChar * numberOfChars);
 
         if (numberOfCoins < addChar * numberOfChars) {
             hint2.setTextColor(Color.parseColor("#455A64"));
@@ -148,5 +160,19 @@ public class hints extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setText();
+
+        TextView coins = (TextView) findViewById(R.id.coins);
+
+        String numberOfCoins = String.valueOf(
+                database.getVariableValue(getResources().getString(R.string.coins)));
+
+        coins.setText(numberOfCoins);
     }
 }

@@ -17,7 +17,18 @@ public class playModes extends AppCompatActivity {
 
     private dataBase database;
 
+    private stringAdapter myStringAdapter;
+
+    TextView singlePlay;
+    TextView playWithFriend;
+
     private final String COINS = "coins";
+
+    private void setText() {
+        singlePlay.setText(myStringAdapter.getString(this, "single_play"));
+
+        playWithFriend.setText(myStringAdapter.getString(this, "play_with_friend"));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +37,16 @@ public class playModes extends AppCompatActivity {
 
         database = new dataBase(this);
 
+        myStringAdapter = new stringAdapter();
+
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 getResources().getString(R.string.font));
 
-        TextView singlePlayButton = (TextView)findViewById(R.id.single_play);
+        singlePlay = (TextView)findViewById(R.id.single_play);
 
-        singlePlayButton.setTypeface(custom_font);
+        singlePlay.setTypeface(custom_font);
 
-        singlePlayButton.setOnClickListener(new View.OnClickListener() {
+        singlePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent singlePlayModeIntent = new Intent(playModes.this, singlePlayMode.class);
@@ -42,11 +55,11 @@ public class playModes extends AppCompatActivity {
             }
         });
 
-        TextView playWithFriendButton = (TextView) findViewById(R.id.play_with_friend);
+        playWithFriend = (TextView) findViewById(R.id.play_with_friend);
 
-        playWithFriendButton.setTypeface(custom_font);
+        playWithFriend.setTypeface(custom_font);
 
-        playWithFriendButton.setOnClickListener(new View.OnClickListener() {
+        playWithFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent playWithFriendModeIntent = new Intent(playModes.this, playWithFriendMode.class);
@@ -85,6 +98,8 @@ public class playModes extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        setText();
 
         TextView coins = (TextView) findViewById(R.id.coins);
 

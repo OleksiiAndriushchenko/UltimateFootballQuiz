@@ -17,7 +17,15 @@ public class MainActivity extends AppCompatActivity {
 
     private dataBase database;
 
+    private  stringAdapter myStringAdapter;
+
     private final String COINS = "coins";
+
+    private void setText() {
+        TextView mainMenu = (TextView) findViewById(R.id.main_menu);
+
+        mainMenu.setText(myStringAdapter.getString(this, "play"));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         database = new dataBase(this);
+
+        myStringAdapter = new stringAdapter();
+
+        setText();
 
         TextView playButton = (TextView)findViewById(R.id.main_menu);
 
@@ -73,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        setText();
 
         TextView coins = (TextView) findViewById(R.id.coins);
 

@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,23 +21,44 @@ import java.util.List;
 
 public class settings extends AppCompatActivity {
 
+    dataBase database;
+
+    stringAdapter myStringAdapter;
+
+    TextView rights, policy;
+
     private void setFont() {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 getResources().getString(R.string.font));
 
-        TextView rights = (TextView) findViewById(R.id.rights);
-        TextView policy = (TextView) findViewById(R.id.policy);
+        rights = (TextView) findViewById(R.id.rights);
+        policy = (TextView) findViewById(R.id.policy);
 
         rights.setTypeface(custom_font);
         policy.setTypeface(custom_font);
 
     }
 
+    private void setText() {
+        rights.setText(myStringAdapter.getString(this, "rights"));
+
+        policy.setText(myStringAdapter.getString(this, "policy"));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        database = new dataBase(this);
+
+        myStringAdapter = new stringAdapter();
+
+        rights = (TextView) findViewById(R.id.rights);
+        policy = (TextView) findViewById(R.id.policy);
+
+        setText();
 
         setFont();
 
@@ -56,6 +79,22 @@ public class settings extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(mySpinnerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                database.updateVariable("language", position);
+
+                setText();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 

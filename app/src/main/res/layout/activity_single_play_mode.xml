@@ -85,7 +85,7 @@
                     <TextView
                         android:id="@+id/textViewFootballers"
                         style="@style/progressTextStyle"
-                        android:text="@string/players"/>
+                        android:text="@string/players_en"/>
 
                 </RelativeLayout>
 
@@ -122,7 +122,7 @@
                     <TextView
                         android:id="@+id/textViewClubs"
                         style="@style/progressTextStyle"
-                        android:text="@string/clubs"/>
+                        android:text="@string/clubs_en"/>
 
                 </RelativeLayout>
 
@@ -168,7 +168,7 @@
                     <TextView
                         android:id="@+id/textViewTransfers"
                         style="@style/progressTextStyle"
-                        android:text="@string/transfers"/>
+                        android:text="@string/transfers_en"/>
 
                 </RelativeLayout>
 
@@ -206,7 +206,7 @@
                     <TextView
                         android:id="@+id/textViewLegends"
                         style="@style/progressTextStyle"
-                        android:text="@string/legends"/>
+                        android:text="@string/legends_en"/>
 
                 </RelativeLayout>
 

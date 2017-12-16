@@ -23,12 +23,13 @@
 
         <TextView
             android:id="@+id/rights"
-            android:text="@string/right"
+            android:text="@string/rights_en"
             style="@style/textViewStyle"/>
 
         <TextView
             android:id="@+id/policy"
-            android:text="@string/policy"
+            android:text="@string/policy_en"
+            android:lineSpacingMultiplier="1.2"
             style="@style/textViewStyle"/>
 
     </LinearLayout>
