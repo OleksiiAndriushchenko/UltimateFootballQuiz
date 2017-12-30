@@ -1,9 +1,12 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +28,7 @@ public class settings extends AppCompatActivity {
 
     stringAdapter myStringAdapter;
 
-    TextView rights, policy;
+    TextView rights;
 
     private void setFont() {
 
@@ -33,17 +36,13 @@ public class settings extends AppCompatActivity {
                 getResources().getString(R.string.font));
 
         rights = (TextView) findViewById(R.id.rights);
-        policy = (TextView) findViewById(R.id.policy);
 
         rights.setTypeface(custom_font);
-        policy.setTypeface(custom_font);
 
     }
 
     private void setText() {
         rights.setText(myStringAdapter.getString(this, "rights"));
-
-        policy.setText(myStringAdapter.getString(this, "policy"));
     }
 
     @Override
@@ -56,7 +55,15 @@ public class settings extends AppCompatActivity {
         myStringAdapter = new stringAdapter();
 
         rights = (TextView) findViewById(R.id.rights);
-        policy = (TextView) findViewById(R.id.policy);
+
+        rights.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent copyrightIntent = new Intent(settings.this, copyright.class);
+
+                startActivity(copyrightIntent);
+            }
+        });
 
         setText();
 
@@ -78,6 +85,10 @@ public class settings extends AppCompatActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        spinner.setAdapter(mySpinnerAdapter);
+
+        spinner.setSelection(database.getVariableValue("language"));
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,10 +104,6 @@ public class settings extends AppCompatActivity {
 
             }
         });
-
-        spinner.setAdapter(mySpinnerAdapter);
-
-
 
     }
 
@@ -120,7 +127,7 @@ public class settings extends AppCompatActivity {
 
             v.setTypeface(custom_font);
             v.setPadding(24, 24, 24, 24);
-            v.setGravity(TextView.TEXT_ALIGNMENT_CENTER);
+            v.setGravity(Gravity.CENTER);
             v.setTextSize(28);
 
             return v;
@@ -140,7 +147,7 @@ public class settings extends AppCompatActivity {
 
             v.setTypeface(custom_font);
             v.setPadding(24, 24, 24, 24);
-            v.setGravity(TextView.TEXT_ALIGNMENT_CENTER);
+            v.setGravity(Gravity.CENTER);
             v.setTextSize(28);
 
             return v;

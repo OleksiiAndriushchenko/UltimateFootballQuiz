@@ -55,11 +55,6 @@
             android:text="@string/options_en"
             style="@style/textViewStyle"/>
 
-        <TextView
-            android:id="@+id/howToPlay"
-            android:text="@string/how_to_play_en"
-            style="@style/textViewStyle"/>
-
     </LinearLayout>
 
 </RelativeLayout>

@@ -18,14 +18,12 @@ public class playWithFriendMode extends AppCompatActivity {
 
     private stringAdapter myStringAdapter;
 
-    TextView play, options, howToPlay;
+    TextView play, options;
 
     private void setText() {
         play.setText(myStringAdapter.getString(this, "play"));
 
         options.setText(myStringAdapter.getString(this, "options"));
-
-        howToPlay.setText(myStringAdapter.getString(this, "how_to_play"));
     }
 
     @Override
@@ -53,11 +51,16 @@ public class playWithFriendMode extends AppCompatActivity {
 
         play.setTypeface(custom_font);
 
-        howToPlay = (TextView) findViewById(R.id.howToPlay);
-
-        howToPlay.setTypeface(custom_font);
-
         options = (TextView) findViewById(R.id.options);
+
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent optionsIntent = new Intent(playWithFriendMode.this, options.class);
+
+                startActivity(optionsIntent);
+            }
+        });
 
         options.setTypeface(custom_font);
 
@@ -87,7 +90,7 @@ public class playWithFriendMode extends AppCompatActivity {
 
         TextView coins = (TextView) findViewById(R.id.coins);
 
-        coins.setText("" + database.getVariableValue(getResources().getString(R.string.coins)));
+        coins.setText("" + database.getVariableValue(getResources().getString(R.string.coins_en)));
     }
 
     @Override
@@ -99,7 +102,7 @@ public class playWithFriendMode extends AppCompatActivity {
         TextView coins = (TextView) findViewById(R.id.coins);
 
         String numberOfCoins = String.valueOf(
-                database.getVariableValue(getResources().getString(R.string.coins)));
+                database.getVariableValue(getResources().getString(R.string.coins_en)));
 
         coins.setText(numberOfCoins);
     }

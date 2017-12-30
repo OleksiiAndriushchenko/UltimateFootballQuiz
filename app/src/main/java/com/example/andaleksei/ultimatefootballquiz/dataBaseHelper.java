@@ -1,5 +1,6 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -17,6 +22,7 @@ import java.io.InputStreamReader;
 
 import static android.R.attr.name;
 import static android.R.attr.value;
+import static android.R.attr.widgetLayout;
 import static java.security.AccessController.getContext;
 
 /**
@@ -140,12 +146,12 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void insertVariable(SQLiteDatabase db, String name, int id) {
+    private void insertVariable(SQLiteDatabase db, String name, int id, int value) {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(dataBaseHelper.UID, id);
         contentValues.put(dataBaseHelper.NAME, name);
-        contentValues.put(dataBaseHelper.VALUE, id == 1 ? 50 : 0);
+        contentValues.put(dataBaseHelper.VALUE, value);
 
         db.insert(dataBaseHelper.TABLE_NAME_VARIABLES, null , contentValues);
     }
@@ -172,10 +178,12 @@ public class dataBaseHelper extends SQLiteOpenHelper {
         fis = context.getResources().openRawResource(R.raw.legends);
         fillTable(database, fis, TABLE_NAME_LEGENDS, 0);
 
-        insertVariable(db, "coins", 1);
-        insertVariable(db, "add char", 2);
-        insertVariable(db, "add chars", 3);
-        insertVariable(db, "language", 4);
+        insertVariable(db, "coins", 1, 50);
+        insertVariable(db, "add char", 2, 0);
+        insertVariable(db, "add chars", 3, 0);
+        insertVariable(db, "language", 4, 0);
+        insertVariable(db, "time", 5, 1);
+        insertVariable(db, "players", 6, 1);
 
     }
 

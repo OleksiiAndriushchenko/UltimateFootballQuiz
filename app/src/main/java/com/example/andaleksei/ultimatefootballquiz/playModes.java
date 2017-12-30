@@ -62,9 +62,20 @@ public class playModes extends AppCompatActivity {
         playWithFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent playWithFriendModeIntent = new Intent(playModes.this, playWithFriendMode.class);
 
-                startActivity(playWithFriendModeIntent);
+                if (database.getNumberOfCompletedItems(1) >= 30) {
+                    Intent playWithFriendModeIntent = new Intent(playModes.this, playWithFriendMode.class);
+
+                    startActivity(playWithFriendModeIntent);
+                } else {
+                    Intent popupwindowIntent = new Intent(playModes.this, popUpWindow.class);
+
+                    popupwindowIntent.putExtra("variant", 2);
+
+                    startActivity(popupwindowIntent);
+                    overridePendingTransition(R.anim.popup_animation_in, R.anim.popup_animation_out);
+                }
+
             }
         });
 

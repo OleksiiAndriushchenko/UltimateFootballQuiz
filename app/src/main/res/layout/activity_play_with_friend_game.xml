@@ -71,10 +71,16 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/timerOpponent"
+            android:layout_gravity="center"
+            android:rotation="180"
+            style="@style/textViewStyle"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="8"
             android:orientation="horizontal">
 
             <ImageView
@@ -87,6 +93,11 @@
                 style="@style/duelPhotoStyle"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/timerPlayer"
+            android:layout_gravity="center"
+            style="@style/textViewStyle" />
 
         <LinearLayout
             android:layout_width="match_parent"

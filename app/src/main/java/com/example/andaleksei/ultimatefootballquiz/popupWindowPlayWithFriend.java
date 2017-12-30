@@ -2,11 +2,13 @@ package com.example.andaleksei.ultimatefootballquiz;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import static com.example.andaleksei.ultimatefootballquiz.R.id.playerResult;
@@ -30,58 +32,29 @@ public class popupWindowPlayWithFriend extends AppCompatActivity {
         if (winner) {
             winnerTextview = (TextView) findViewById(playerResult);
             loserTextview = (TextView) findViewById(R.id.opponentResult);
+
+            RelativeLayout window = (RelativeLayout) findViewById(R.id.allWindow);
+
+            window.setBackgroundResource(R.drawable.result_grad_rotated);
         } else {
+
             winnerTextview = (TextView) findViewById(R.id.opponentResult);
             loserTextview = (TextView) findViewById(playerResult);
+
+            RelativeLayout window = (RelativeLayout) findViewById(R.id.allWindow);
+
+            window.setBackgroundResource(R.drawable.result_grad);
         }
 
+        String winnerStr = "you win!", loserStr = "you loose!";
 
-        winnerTextview.setBackgroundColor(Color.parseColor("#2E7D32"));
-        loserTextview.setBackgroundColor(Color.parseColor("#C62828"));
-
-        String winnerStr = "", loserStr = "";
-
-        winnerStr += "you win!\n";
-        loserStr += "you loose!\n";
-
-        if (winner) {
-            winnerStr = winnerStr + "right answers : " + String.valueOf(playerRightAnswers);
-            winnerStr = winnerStr + " out of 10";
-
-            loserStr = loserStr + "right answers : " + Integer.toString(opponentRightAnswers);
-            loserStr = loserStr + " out of 10";
-        } else {
-            loserStr = loserStr + "right answers : " + String.valueOf(playerRightAnswers);
-            loserStr = loserStr + " out of 10";
-
-            winnerStr = winnerStr + "right answers : " + Integer.toString(opponentRightAnswers);
-            winnerStr = winnerStr + " out of 10";
-        }
-
-        winnerTextview  .setText(winnerStr);
+        winnerTextview.setText(winnerStr);
         loserTextview.setText(loserStr);
 
-        Button returnButton = (Button) findViewById(R.id.returnButton);
-        Button playAgainButton = (Button) findViewById(R.id.playAgainButton);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),
+                getResources().getString(R.string.font));
 
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        playAgainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent playWithFriendGame = new Intent(popupWindowPlayWithFriend.this, playWithFriendGame.class);
-
-                finish();
-
-                startActivity(playWithFriendGame);
-
-            }
-        });
+        winnerTextview.setTypeface(custom_font);
+        loserTextview.setTypeface(custom_font);
     }
 }

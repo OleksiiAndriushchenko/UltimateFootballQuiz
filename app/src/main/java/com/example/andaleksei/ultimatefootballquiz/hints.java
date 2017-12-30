@@ -77,7 +77,7 @@ public class hints extends AppCompatActivity {
 
         setText();
 
-        if (numberOfCoins < addChar) {
+        if (numberOfCoins < addChar || addedChars >= numberOfChars) {
             hint1.setTextColor(Color.parseColor("#455A64"));
             containerHint1.setBackgroundResource(R.drawable.textview_frame_dark);
         } else {
@@ -111,7 +111,7 @@ public class hints extends AppCompatActivity {
             });
         }
 
-        if (numberOfCoins < addChar * numberOfChars) {
+        if (numberOfCoins < addChar * numberOfChars || addedChars >= numberOfChars) {
             hint2.setTextColor(Color.parseColor("#455A64"));
             containerHint2.setBackgroundResource(R.drawable.textview_frame_dark);
         } else {
@@ -119,9 +119,13 @@ public class hints extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (numberOfCoins >= numberOfChars * addChar) {
-                        database.updateVariable("add chars", 1);
 
-                        numberOfCoins -= numberOfChars * addChar;
+                        numberOfCoins -= (numberOfChars - addedChars) * addChar;
+
+                        addedChars = numberOfChars;
+
+                        database.updateVariable("add char", addedChars);
+
                         database.updateVariable(coins, numberOfCoins);
                     }
 
@@ -171,7 +175,7 @@ public class hints extends AppCompatActivity {
         TextView coins = (TextView) findViewById(R.id.coins);
 
         String numberOfCoins = String.valueOf(
-                database.getVariableValue(getResources().getString(R.string.coins)));
+                database.getVariableValue(getResources().getString(R.string.coins_en)));
 
         coins.setText(numberOfCoins);
     }

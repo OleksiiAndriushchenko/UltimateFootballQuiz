@@ -28,17 +28,19 @@ public class playWithFriendGame extends AppCompatActivity {
 
     private dataBase database;
 
-    private PopupWindow result;
-
     private ArrayList<item> allFootballers;
     private ArrayList<String> playerChoosenFootballers;
     private ArrayList<String> opponentChoosenFootballers;
+
+    private int quantity;
 
     private int firstIterator = 0;
     private int secondIterator = 0;
 
     private int playerRightAnswers = 0;
     private int opponentRightAnswers = 0;
+
+    private boolean firstFaster;
 
     private final String tableName = "footballerTable";
     private final String drawable = "drawable";
@@ -49,8 +51,7 @@ public class playWithFriendGame extends AppCompatActivity {
     private List<TextView> playerOptions;
     private List<TextView> opponentOptions;
 
-    private int playerRightVariant;
-    private int opponentRightVariant;
+    myCountDownTimer timer;
 
     private int getFootballerId(String footballer) {
         for (int i = 0; i < allFootballers.size(); i++) {
@@ -63,8 +64,7 @@ public class playWithFriendGame extends AppCompatActivity {
 
     private void setAnswers(boolean player, String rightAnswer) {
         List<TextView> options = player ? playerOptions : opponentOptions;
-        String footballerName = player ? playerChoosenFootballers.get(firstIterator) :
-                opponentChoosenFootballers.get(secondIterator);
+
         fillPlayerOptions(options, rightAnswer);
     }
 
@@ -83,20 +83,23 @@ public class playWithFriendGame extends AppCompatActivity {
 
             if (i == rightVariant) {
                 footballerName = rightAnswer;
-                options.get(i).setText(footballerName.replace("_", " "));
+                options.get(i).setText(
+                        footballerName.replace("_", " ").toUpperCase());
             } else {
                 int randomFootballer;
 
-                int size = database.getLastUnlockedItem(tableName);
+                int size = allFootballers.size();
 
                 do {
-                    randomFootballer = random.nextInt(size);
+                    randomFootballer = random.nextInt(size - 1);
                 } while (usedNumbers.contains(randomFootballer));
 
-                usedNumbers.add(randomFootballer);
-
                 footballerName = allFootballers.get(randomFootballer).getName();
-                options.get(i).setText(footballerName.replace("_", " "));
+
+                usedNumbers.add(getFootballerId(footballerName));
+
+                options.get(i).setText(
+                        footballerName.replace("_", " ").toUpperCase());
             }
         }
 
@@ -115,7 +118,7 @@ public class playWithFriendGame extends AppCompatActivity {
         for (int i = 0; i < quantity; i++) {
             int index = numbers.get(i);
             item footballer = allFootballers.get(index);
-            choosenFootballers.add(footballer.getName());
+            choosenFootballers.add(footballer.getName().toUpperCase());
         }
 
         return choosenFootballers;
@@ -123,9 +126,9 @@ public class playWithFriendGame extends AppCompatActivity {
 
     private void initialConditions() {
         int resId1 = getResources().getIdentifier(playerChoosenFootballers
-                .get(firstIterator), drawable, getPackageName());
+                .get(firstIterator).toLowerCase(), drawable, getPackageName());
         int resId2 = getResources().getIdentifier(opponentChoosenFootballers
-                .get(secondIterator), drawable, getPackageName());
+                .get(secondIterator).toLowerCase(), drawable, getPackageName());
 
         playerPhoto.setImageResource(resId1);
         opponentPhoto.setImageResource(resId2);
@@ -150,49 +153,21 @@ public class playWithFriendGame extends AppCompatActivity {
 
     private void nextPhoto(boolean player) {
         if (player) {
-            int resID = getResources().getIdentifier(playerChoosenFootballers.get(firstIterator), "drawable", getPackageName());
+            int resID = getResources().getIdentifier(
+                    playerChoosenFootballers.get(firstIterator).toLowerCase(),
+                    "drawable",
+                    getPackageName());
             playerPhoto.setImageResource(resID);
 
             setAnswers(player, playerChoosenFootballers.get(firstIterator));
         } else {
-            int resID = getResources().getIdentifier(opponentChoosenFootballers.get(secondIterator), "drawable", getPackageName());
+            int resID = getResources().getIdentifier(
+                    opponentChoosenFootballers.get(secondIterator).toLowerCase(),
+                    "drawable",
+                        getPackageName());
             opponentPhoto.setImageResource(resID);
 
             setAnswers(player, opponentChoosenFootballers.get(secondIterator));
-        }
-    }
-
-    private class myCountDownTimer extends CountDownTimer {
-
-        public myCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-            long seconds = millisUntilFinished / 1000;
-
-            TextView countDownUp = (TextView) findViewById(R.id.countdownUp);
-
-            TextView countDownDown = (TextView) findViewById(R.id.countdownDown);
-
-            countDownUp.setText(String.valueOf(seconds));
-            countDownDown.setText(String.valueOf(seconds));
-        }
-
-        @Override
-        public void onFinish() {
-            LinearLayout window = (LinearLayout) findViewById(R.id.allWindow);
-
-            window.setVisibility(View.VISIBLE);
-
-            TextView countDownUp = (TextView) findViewById(R.id.countdownUp);
-
-            TextView countDownDown = (TextView) findViewById(R.id.countdownDown);
-
-            countDownUp.setVisibility(View.GONE);
-            countDownDown.setVisibility(View.GONE);
         }
     }
 
@@ -205,19 +180,22 @@ public class playWithFriendGame extends AppCompatActivity {
             String rightFootballerName = playerChoosenFootballers.get(firstIterator)
                     .replace("_", " ");
 
-            if (firstIterator < 10) {
+            if (firstIterator < quantity) {
                 firstIterator++;
-                if (firstIterator == 10) unSetOnClickListeners(playerOptions);
+                if (firstIterator == quantity) unSetOnClickListeners(playerOptions);
             }
 
             if (answer.compareTo(rightFootballerName) == 0)
                 playerRightAnswers++;
 
-            if (firstIterator < 10) {
+            if (firstIterator < quantity) {
                 nextPhoto(true);
             } else {
-                if (secondIterator == 10) showResult();
-                else playerPhoto.setImageResource(R.drawable.done);
+                if (secondIterator == quantity) showResult();
+                else {
+                    playerPhoto.setImageResource(R.drawable.done);
+                    firstFaster = true;
+                }
             }
         }
     };
@@ -231,19 +209,22 @@ public class playWithFriendGame extends AppCompatActivity {
             String rightFootballerName = opponentChoosenFootballers.get(secondIterator)
                     .replace("_", " ");
 
-            if (secondIterator < 10) {
+            if (secondIterator < quantity) {
                 secondIterator++;
-                if (secondIterator == 10) unSetOnClickListeners(opponentOptions);
+                if (secondIterator == quantity) unSetOnClickListeners(opponentOptions);
             }
 
             if (answer.compareTo(rightFootballerName) == 0)
                 opponentRightAnswers++;
 
-            if (secondIterator < 10) {
+            if (secondIterator < quantity) {
                 nextPhoto(false);
             } else {
-                if (firstIterator == 10) showResult();
-                else opponentPhoto.setImageResource(R.drawable.done);
+                if (firstIterator == quantity) showResult();
+                else {
+                    opponentPhoto.setImageResource(R.drawable.done);
+                    firstFaster = false;
+                }
             }
         }
     };
@@ -272,7 +253,7 @@ public class playWithFriendGame extends AppCompatActivity {
 
         popupWindow.putExtra("winner", winner);
 
-        popupWindow.putExtra("number of questions", 10);
+        popupWindow.putExtra("number of questions", quantity);
 
         popupWindow.putExtra("player right answers", playerRightAnswers);
         popupWindow.putExtra("opponent right answers", opponentRightAnswers);
@@ -294,25 +275,108 @@ public class playWithFriendGame extends AppCompatActivity {
 
         int size = database.getLastUnlockedItem("footballerTable");
 
+        quantity = database.getVariableValue("players");
+
         allFootballers = new ArrayList<item>();
 
         for (int i = 1; i <= size; i++) {
-            allFootballers.add(database.getData(i, "footballerTable"));
+            if (database.getCompletedState(i, "footballerTable") == 1) {
+                allFootballers.add(database.getData(i, "footballerTable"));
+            }
         }
 
-        playerChoosenFootballers = chooseFootballers(10);
+        playerChoosenFootballers = chooseFootballers(quantity);
         opponentChoosenFootballers = new ArrayList<String>(playerChoosenFootballers);
+
         Collections.shuffle(opponentChoosenFootballers);
 
         initialConditions();
 
-        myCountDownTimer countDownTimer = new myCountDownTimer(3500, 500);
-        countDownTimer.start();
+        myCountDownTimer timerBeforeGame = new myCountDownTimer(
+                3000,
+                500,
+                1);
+
+        timerBeforeGame.start();
+
+        timer = new myCountDownTimer(
+                database.getVariableValue("time") * 1000,
+                1000,
+                2);
 
         LinearLayout window = (LinearLayout) findViewById(R.id.allWindow);
 
         window.setVisibility(View.GONE);
 
         setOnClickListeners();
+    }
+
+    private void setTimer() {
+        timer.start();
+    }
+
+    private class myCountDownTimer extends CountDownTimer {
+
+        int timer;
+
+        public myCountDownTimer(long millisInFuture, long countDownInterval, int varTimer) {
+            super(millisInFuture, countDownInterval);
+            timer = varTimer;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+            long seconds = millisUntilFinished / 1000;
+
+            if (timer == 1) {
+                TextView countDownUp = (TextView) findViewById(R.id.countdownUp);
+
+                TextView countDownDown = (TextView) findViewById(R.id.countdownDown);
+
+                countDownUp.setText(String.valueOf(seconds));
+                countDownDown.setText(String.valueOf(seconds));
+            } else {
+                TextView playerTimer = (TextView) findViewById(R.id.timerPlayer);
+
+                TextView opponentTimer = (TextView) findViewById(R.id.timerOpponent);
+
+                playerTimer.setText(String.valueOf(seconds));
+
+                opponentTimer.setText(String.valueOf(seconds));
+            }
+
+        }
+
+        @Override
+        public void onFinish() {
+
+            if (timer == 1) {
+                LinearLayout window = (LinearLayout) findViewById(R.id.allWindow);
+
+                setTimer();
+
+                window.setVisibility(View.VISIBLE);
+
+                TextView countDownUp = (TextView) findViewById(R.id.countdownUp);
+
+                TextView countDownDown = (TextView) findViewById(R.id.countdownDown);
+
+                countDownUp.setVisibility(View.GONE);
+                countDownDown.setVisibility(View.GONE);
+            } else {
+                Intent popupWindow = new Intent(playWithFriendGame.this, popupWindowPlayWithFriend.class);
+
+                boolean winner = (playerRightAnswers > opponentRightAnswers ||
+                                  playerRightAnswers == opponentRightAnswers && firstFaster);
+
+                popupWindow.putExtra("winner", winner);
+
+                finish();
+
+                startActivity(popupWindow);
+            }
+
+        }
     }
 }

@@ -58,7 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:background="#FDD835"
+                android:background="@drawable/image_frame"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="2dp"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="6"
-                    android:src="@drawable/pogba"
+                    android:src="@drawable/pogba_edited"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"/>
 
@@ -96,6 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:background="@drawable/image_frame"
                 android:padding="2dp"
                 android:orientation="vertical"
                 android:gravity="center"
@@ -144,7 +145,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="#FDD835"
+                android:background="@drawable/image_frame"
                 android:padding="2dp"
                 android:layout_margin="2dp">
 
@@ -179,7 +180,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:background="#FDD835"
+                android:background="@drawable/image_frame"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="2dp"

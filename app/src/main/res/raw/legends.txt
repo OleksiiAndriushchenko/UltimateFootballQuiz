@@ -8,7 +8,7 @@
 8 maldini
 9 ronaldo
 10 zidane
-11 rivaldo
+11 zoff
 12 luis_figo
 13 owen
 14 nedved
@@ -18,7 +18,7 @@
 18 beckenbauer
 19 bobby_moore
 20 pele
-21 alfredo_di_stefano
+21 okocha
 22 cruyff
 23 puskas
 24 best
@@ -45,7 +45,7 @@
 45 roberto_carlos
 46 shearer
 47 suker
-48 vieri
+48 van_nistelrooy
 49 del_piero
 50 valderrama
 51 davids

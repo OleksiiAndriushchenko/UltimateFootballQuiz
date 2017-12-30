@@ -12,7 +12,6 @@
         android:id="@+id/phrase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keep it up!"
         android:layout_centerInParent="true"
         android:textSize="30dp"
         android:textColor="#ffffff"
@@ -20,14 +19,14 @@
 
     <TextView
         android:id="@+id/level"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/circular_background"
         android:gravity="center"
-        android:text="Level\n1"
         android:textSize="30dp"
         android:textColor="#fff"
+        android:lineSpacingMultiplier="1.6"
         android:layout_above="@id/phrase"
         android:layout_marginBottom="16dp"/>
 
@@ -35,7 +34,6 @@
         android:id="@+id/addCoins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ 25 coins"
         android:layout_below="@id/phrase"
         android:layout_centerHorizontal="true"
         android:textSize="30dp"

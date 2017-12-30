@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_grad"
+    tools:context="com.example.andaleksei.ultimatefootballquiz.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/coinsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            style="@style/coins"/>
+
+        <TextView
+            android:id="@+id/coins"
+            style="@style/coinsNumbers" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:id="@+id/settings"
+            style="@style/settings"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/time"
+                style="@style/textViewStyle"/>
+
+            <Spinner
+                android:id="@+id/timeSpinner"
+                style="@style/spinnerStyle"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/questions"
+                style="@style/textViewStyle"/>
+
+            <Spinner
+                android:id="@+id/questionsSpinner"
+                style="@style/spinnerStyle"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -222,39 +223,7 @@ public class dataBase {
         clubs = getNumberOfCompletedItems(2);
         transfers = getNumberOfCompletedItems(3);
 
-        return footballers > 5 && clubs > 5 && transfers > 5;
-    }
-
-    public void openLegends() {
-        item object = new item();
-
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        String arg = "SELECT * FROM " + dataBaseHelper.TABLE_NAME_LEGENDS + " WHERE " +
-                dataBaseHelper.UID + " = 1";
-
-        Cursor cursor = db.rawQuery(arg, null);
-
-        cursor.moveToNext();
-
-        object.setId(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.UID)));
-        object.setName(cursor.getString(cursor.getColumnIndex(dataBaseHelper.NAME)));
-        object.setAccess(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.ACCESS)));
-        object.setCompleted(cursor.getInt(cursor.getColumnIndex(dataBaseHelper.COMPLETED)));
-
-        object.setAccess(1);
-
-        db = dbHelper.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(dataBaseHelper.UID, object.getId());
-        contentValues.put(dataBaseHelper.NAME, object.getName());
-        contentValues.put(dataBaseHelper.ACCESS, object.getAccess());
-        contentValues.put(dataBaseHelper.COMPLETED, object.getCompleted());
-
-        db.update(dataBaseHelper.TABLE_NAME_LEGENDS, contentValues,
-                dataBaseHelper.NAME + " = ?", new String[]{object.getName()});
+        return footballers >= 300 && clubs >= 100 && transfers >= 70;
     }
 
     public int getVariableValue(String name) {

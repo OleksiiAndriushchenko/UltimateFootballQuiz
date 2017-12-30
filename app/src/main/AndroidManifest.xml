@@ -4,29 +4,58 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".playModes" />
-        <activity android:name=".singlePlayMode" />
-        <activity android:name=".playWithFriendMode" />
-        <activity android:name=".singlePlayGame" />
-        <activity android:name=".singlePlayMenu" />
-        <activity android:name=".playWithFriendGame" />
-        <activity android:name=".popupWindowSinglePlayMode" />
-        <activity android:name=".popupWindowPlayWithFriend" />
-        <activity android:name=".hints" />
-        <activity android:name=".settings" />
-        <activity android:name=".coins"></activity>
+        <activity
+            android:name=".playModes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".singlePlayMode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".playWithFriendMode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".singlePlayGame"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".singlePlayMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".playWithFriendGame"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".popupWindowSinglePlayMode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".popupWindowPlayWithFriend"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".hints"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coins"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".popUpWindow"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity android:name=".options" />
+        <activity android:name=".copyright"></activity>
     </application>
 
 </manifest>

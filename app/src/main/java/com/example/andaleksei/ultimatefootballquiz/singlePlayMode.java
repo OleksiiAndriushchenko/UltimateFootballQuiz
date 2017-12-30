@@ -1,5 +1,6 @@
 package com.example.andaleksei.ultimatefootballquiz;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -73,7 +74,6 @@ public class singlePlayMode extends AppCompatActivity {
         ImageView legendPhoto = (ImageView) findViewById(R.id.legendPhoto);
 
         if (database.getLastUnlockedItem("legendTable") >= 1) {
-            legendContainer.setBackgroundColor(Color.parseColor("#FDD835"));
             legendPhoto.setImageResource(R.drawable.henry);
 
             legendContainer.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +87,19 @@ public class singlePlayMode extends AppCompatActivity {
                 }
             });
         } else {
-            legendContainer.setBackgroundColor(Color.TRANSPARENT);
             legendPhoto.setImageResource(R.drawable.lock);
+
+            legendContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent popupwindowIntent = new Intent(singlePlayMode.this, popUpWindow.class);
+
+                    popupwindowIntent.putExtra("variant", 1);
+
+                    startActivity(popupwindowIntent);
+                    overridePendingTransition(R.anim.popup_animation_in, R.anim.popup_animation_out);
+                }
+            });
         }
     }
 

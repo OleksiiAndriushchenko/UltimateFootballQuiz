@@ -2,9 +2,10 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/allWindow"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_grad"
+    android:background="@drawable/result_grad"
     tools:context="com.example.andaleksei.ultimatefootballquiz.popupWindowSinglePlayMode">
 
     <LinearLayout
@@ -14,40 +15,18 @@
 
         <TextView
             android:id="@+id/opponentResult"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Winner"
-            android:gravity="center"
-            android:rotation="180"/>
+            android:rotation="180"
+            android:layout_gravity="center"
+            style="@style/textViewStyle"/>
 
         <TextView
             android:id="@+id/playerResult"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Winner"
-            android:gravity="center"/>
+            android:layout_gravity="center"
+            style="@style/textViewStyle"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/returnButton"
-        android:background="@drawable/left_orange"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:layout_alignParentBottom="true" />
-
-    <Button
-        android:id="@+id/playAgainButton"
-        android:background="@drawable/right_orange"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
 
 
 </RelativeLayout>

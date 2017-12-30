@@ -11,19 +11,19 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.andaleksei.ultimatefootballquiz.R.id.returnButton;
-
 public class popupWindowSinglePlayMode extends AppCompatActivity {
 
     private Intent currentIntent;
 
     private dataBase database;
 
+    private stringAdapter myStringAdapter;
+
     private Timer timer;
 
     private final String COINS = "coins";
 
-    private void setFont() {
+    private void setFont(final int addCoins) {
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 getResources().getString(R.string.font));
@@ -34,11 +34,18 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
 
         tv = (TextView) findViewById(R.id.phrase);
 
-        tv.setTypeface(custom_font);
-
-        tv = (TextView) findViewById(R.id.addCoins);
+        tv.setText(myStringAdapter.getString(this, "keep"));
 
         tv.setTypeface(custom_font);
+
+        if (addCoins == 1) {
+            tv = (TextView) findViewById(R.id.addCoins);
+
+            String coins = "+25 " + myStringAdapter.getString(this, "coins");
+            tv.setText(coins );
+
+            tv.setTypeface(custom_font);
+        }
     }
 
     @Override
@@ -51,15 +58,18 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
 
         database = new dataBase(this);
 
-        //setFont();
+        myStringAdapter = new stringAdapter();
 
         TextView level = (TextView) findViewById(R.id.level);
         TextView coins = (TextView) findViewById(R.id.coins);
 
         final int completedItem = currentIntent.getIntExtra("choosen item", -1) - 1;
         final int tableId = currentIntent.getIntExtra("game mode", -1);
+        final int addCoins = currentIntent.getIntExtra("add coins", -1);
 
-        level.setText("level\n" + completedItem);
+        setFont(addCoins);
+
+        level.setText(myStringAdapter.getString(this, "level") + "\n" + completedItem);
 
         final String table = database.getTableName(tableId);
 

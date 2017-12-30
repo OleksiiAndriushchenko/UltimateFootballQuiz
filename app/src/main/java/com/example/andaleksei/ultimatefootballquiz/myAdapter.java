@@ -53,10 +53,12 @@ public class myAdapter extends BaseAdapter {
             textview.setText("");
         } else if (database.getCompletedState(position, tableName) == 0) {
             textview.setBackgroundColor(Color.TRANSPARENT);
+            textview.setTextColor(Color.parseColor("#121212"));
             textview.setText("" + position);
         } else {
-            textview.setBackgroundResource(R.drawable.tick);
-            textview.setText("");
+            textview.setBackgroundColor(Color.TRANSPARENT);
+            textview.setTextColor(Color.parseColor("#F9A825"));
+            textview.setText("" + position);
         }
 
         return convertView;

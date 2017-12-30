@@ -174,22 +174,27 @@ public class singlePlayGame extends AppCompatActivity {
 
         if (objectName.equals(userInput)) {
 
+            Intent popupWindow = new Intent(
+                    singlePlayGame.this, popupWindowSinglePlayMode.class);
+
             if (currentObject.getCompleted() == 0) {
                 currentObject.setCompleted(1);
 
                 database.updateVariable(COINS, database.getVariableValue(COINS) + 25);
 
+                popupWindow.putExtra("add coins", 1);
+
                 database.setCompleted(tableName, currentObject);
 
-                if (database.reachThreshold(gameMode))
-                    database.unlockNextItem(tableName, 10);
+                if (database.reachThreshold(gameMode)){
+                    int quantity = gameMode == 4 ? 5 : 10;
+                    database.unlockNextItem(tableName, quantity);
+                }
 
                 if (database.canOpenLegends())
-                    database.openLegends();
-            }
-
-            Intent popupWindow = new Intent(
-                    singlePlayGame.this, popupWindowSinglePlayMode.class);
+                    database.unlockNextItem("legendTable", 5);
+            } else
+                popupWindow.putExtra("add coins", 0);
 
             popupWindow.putExtra("choosen item", itemIndex + 1);
             popupWindow.putExtra("game mode", gameMode);
@@ -252,8 +257,10 @@ public class singlePlayGame extends AppCompatActivity {
 
             LinearLayout.LayoutParams layoutParamsClub = new LinearLayout.LayoutParams(clubSize, clubSize);
             layoutParamsClub.setMargins(8, 0, 8, 0);
+            if (currentObject.getNumberOfClubs() > 3) layoutParamsClub.weight = 1;
 
             LinearLayout.LayoutParams layoutParamsArrow = new LinearLayout.LayoutParams(arrowSize, arrowSize);
+            if (currentObject.getNumberOfClubs() > 3) layoutParamsArrow.weight = 1;
 
             for (int i = 0; i < numberOfClubs; i++) {
                 if (i > 0) {

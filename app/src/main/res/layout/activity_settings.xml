@@ -16,20 +16,11 @@
 
         <Spinner
             android:id="@+id/language"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </Spinner>
+            style="@style/spinnerStyle"/>
 
         <TextView
             android:id="@+id/rights"
             android:text="@string/rights_en"
-            style="@style/textViewStyle"/>
-
-        <TextView
-            android:id="@+id/policy"
-            android:text="@string/policy_en"
-            android:lineSpacingMultiplier="1.2"
             style="@style/textViewStyle"/>
 
     </LinearLayout>

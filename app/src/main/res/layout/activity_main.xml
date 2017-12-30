@@ -7,8 +7,23 @@
     android:background="@drawable/background_grad"
     tools:context="com.example.andaleksei.ultimatefootballquiz.MainActivity">
 
+    <RelativeLayout
+        android:id="@+id/loading"
+        android:visibility="invisible"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/loadingTextview"
+            style="@style/progressTextStyle"
+            android:text="Load database"/>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/coinsContainer"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:orientation="horizontal"
@@ -24,6 +39,8 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/settingsContainer"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:orientation="horizontal"

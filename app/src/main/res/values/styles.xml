@@ -1,11 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="@style/Theme.AppCompat">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+
+    </style>
+
+    <style name="AppTheme.PopMe" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="textViewStyle">
@@ -14,8 +20,18 @@
         <item name="android:padding">24dp</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">28dp</item>
+        <item name="android:textSize">28sp</item>
         <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="spinnerStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="optionStyle">
@@ -34,11 +50,13 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:padding">8dp</item>
-
         <item name="android:layout_marginBottom">32dp</item>
         <item name="android:layout_marginTop">32dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
         <item name="android:adjustViewBounds">true</item>
-        <item name="android:scaleType">centerCrop</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@drawable/image_frame</item>
     </style>
 
     <style name="progressTextStyle">
