@@ -15,8 +15,8 @@
     <string name="settings_en">Settings</string>
     <string name="options_en">Options</string>
     <string name="rights_en">Copyright</string>
-    <string name="rateApp_en">Rate app</string>
-    <string name="video_en">Watch video</string>
+    <string name="rateApp_en">Rate app, +500</string>
+    <string name="video_en">Watch video, +50</string>
     <string name="keep_en">Keep it up!</string>
     <string name="coins_en">coins</string>
     <string name="level_en">Level</string>
@@ -35,8 +35,8 @@
     <string name="settings_ru">Настройки</string>
     <string name="options_ru">Настройки</string>
     <string name="rights_ru">Авторское право</string>
-    <string name="rateApp_ru">Оценить игру</string>
-    <string name="video_ru">Посмотреть видео</string>
+    <string name="rateApp_ru">Оценить игру, +500</string>
+    <string name="video_ru">Посмотреть видео, +50</string>
     <string name="keep_ru">Продолжай!</string>
     <string name="coins_ru">монет</string>
     <string name="level_ru">Уровень</string>

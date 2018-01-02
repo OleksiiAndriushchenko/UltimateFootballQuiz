@@ -153,7 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="6"
-                    android:src="@drawable/gotze"
+                    android:src="@drawable/neymar_edited"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"/>
 
@@ -191,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="6"
-                    android:src="@drawable/henry"
+                    android:src="@drawable/henry_edited"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"/>
 

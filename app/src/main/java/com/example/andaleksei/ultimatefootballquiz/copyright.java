@@ -16,9 +16,18 @@ public class copyright extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_copyright);
 
+        dataBase database = new dataBase(this);
+
+        int language = database.getVariableValue("language");
+
         TextView text = (TextView) findViewById(R.id.text);
 
-        InputStream fis = getApplicationContext().getResources().openRawResource(R.raw.authors);
+        InputStream fis;
+
+        if (language == 0)
+            fis = getApplicationContext().getResources().openRawResource(R.raw.authors_en);
+        else
+            fis = getApplicationContext().getResources().openRawResource(R.raw.authors_ru);
 
         if (fis != null) {
 
@@ -28,6 +37,8 @@ public class copyright extends AppCompatActivity {
 
                 String line = "";
 
+                line += buffreader.readLine() + "\n";
+                line += buffreader.readLine() + "\n";
                 line += buffreader.readLine();
 
                 text.setText(line);

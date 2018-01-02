@@ -353,8 +353,8 @@ public class singlePlayGame extends AppCompatActivity {
 
             if (objectName.contains(" ")) {
                 if (i < space) {
-                    params.weight = (space > 7) ? 1 : 0;
-                } else params.weight = objectName.length() - space > 7 ? 1 : 0;
+                    params.weight = (space > 6) ? 1 : 0;
+                } else params.weight = objectName.length() - space > 6 ? 1 : 0;
             } else params.weight = objectName.length() > 6 ? 1 : 0;
 
             tempTextview.setLayoutParams(params);
@@ -490,17 +490,20 @@ public class singlePlayGame extends AppCompatActivity {
     }
 
     private void clearAnswer() {
-        for (int i = num - 1; i >= 0; i--) {
+        for (int i = wordLength - 1; i >= 0; i--) {
             Log.v("TAG", "" + i + " " + num + " " + wordLength);
-            int index = answerNum[i];
 
-            if (index < charactersPerRow) {
-                firstR[index].setText(answer.get(i).getText());
-            } else {
-                secondR[index - charactersPerRow].setText(answer.get(i).getText());
+            if (!answer.get(i).getText().equals("")) {
+                int index = answerNum[i];
+
+                if (index < charactersPerRow) {
+                    firstR[index].setText(answer.get(i).getText());
+                } else {
+                    secondR[index - charactersPerRow].setText(answer.get(i).getText());
+                }
+
+                answer.get(i).setText("");
             }
-
-            answer.get(i).setText("");
         }
 
         num = 0;

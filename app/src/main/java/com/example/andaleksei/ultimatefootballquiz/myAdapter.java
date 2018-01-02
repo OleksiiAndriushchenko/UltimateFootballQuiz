@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,17 +49,31 @@ public class myAdapter extends BaseAdapter {
         int margin = context.getResources().getDimensionPixelSize(R.dimen.margin_normal);
 
         dataBase database = new dataBase(context);
-
+        FrameLayout gridLayout = (FrameLayout)convertView.findViewById(R.id.lin_layout);
+        TextView completedLevelTextView = (TextView)convertView.findViewById(R.id.show_completed_level_text_view);
+        ImageView comletedLevelTickImageView = (ImageView)convertView.findViewById(R.id.tick_image_view);
         if (position > lastUnlockedItem) {
+            completedLevelTextView.setVisibility(View.INVISIBLE);
+            comletedLevelTickImageView.setVisibility(View.INVISIBLE);
+            textview.setVisibility(View.VISIBLE);
             textview.setBackgroundResource(R.drawable.lock);
+            gridLayout.setBackgroundResource(R.drawable.grid_frame_completed);
             textview.setText("");
         } else if (database.getCompletedState(position, tableName) == 0) {
+            completedLevelTextView.setVisibility(View.INVISIBLE);
+            comletedLevelTickImageView.setVisibility(View.INVISIBLE);
+            textview.setVisibility(View.VISIBLE);
             textview.setBackgroundColor(Color.TRANSPARENT);
-            textview.setTextColor(Color.parseColor("#121212"));
+            gridLayout.setBackgroundResource(R.drawable.grid_frame);
             textview.setText("" + position);
         } else {
-            textview.setBackgroundColor(Color.TRANSPARENT);
-            textview.setTextColor(Color.parseColor("#F9A825"));
+            completedLevelTextView.setVisibility(View.VISIBLE);
+            comletedLevelTickImageView.setVisibility(View.VISIBLE);
+            textview.setVisibility(View.INVISIBLE);
+
+            completedLevelTextView.setText(String.valueOf(position));
+
+            gridLayout.setBackgroundResource(R.drawable.grid_frame_completed);
             textview.setText("" + position);
         }
 

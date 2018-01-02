@@ -4,4 +4,10 @@
     <item
         android:drawable="@drawable/background_grad"/>
 
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/loading"/>
+    </item>
+
 </layer-list>

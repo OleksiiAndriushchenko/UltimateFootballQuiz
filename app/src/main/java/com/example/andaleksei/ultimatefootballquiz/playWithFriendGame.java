@@ -52,6 +52,7 @@ public class playWithFriendGame extends AppCompatActivity {
     private List<TextView> opponentOptions;
 
     myCountDownTimer timer;
+    long timeRemaining;
 
     private int getFootballerId(String footballer) {
         for (int i = 0; i < allFootballers.size(); i++) {
@@ -193,7 +194,7 @@ public class playWithFriendGame extends AppCompatActivity {
             } else {
                 if (secondIterator == quantity) showResult();
                 else {
-                    playerPhoto.setImageResource(R.drawable.done);
+                    playerPhoto.setImageResource(R.drawable.tick);
                     firstFaster = true;
                 }
             }
@@ -222,7 +223,7 @@ public class playWithFriendGame extends AppCompatActivity {
             } else {
                 if (firstIterator == quantity) showResult();
                 else {
-                    opponentPhoto.setImageResource(R.drawable.done);
+                    opponentPhoto.setImageResource(R.drawable.tick);
                     firstFaster = false;
                 }
             }
@@ -244,6 +245,8 @@ public class playWithFriendGame extends AppCompatActivity {
 
     private void showResult() {
 
+        timer.cancel();
+        
         Intent popupWindow = new Intent(playWithFriendGame.this, popupWindowPlayWithFriend.class);
 
         boolean winner;
@@ -299,8 +302,9 @@ public class playWithFriendGame extends AppCompatActivity {
 
         timerBeforeGame.start();
 
+        timeRemaining = (long)database.getVariableValue("time") * 1000;
         timer = new myCountDownTimer(
-                database.getVariableValue("time") * 1000,
+                timeRemaining,
                 1000,
                 2);
 
@@ -309,6 +313,38 @@ public class playWithFriendGame extends AppCompatActivity {
         window.setVisibility(View.GONE);
 
         setOnClickListeners();
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+
+        timer.cancel();
+
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        timer = new myCountDownTimer(
+                timeRemaining,
+                1000,
+                2);
+
+        timer.start();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+        timer.cancel();
+
     }
 
     private void setTimer() {
@@ -326,6 +362,8 @@ public class playWithFriendGame extends AppCompatActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
+
+            timeRemaining = millisUntilFinished;
 
             long seconds = millisUntilFinished / 1000;
 
