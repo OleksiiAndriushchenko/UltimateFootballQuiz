@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Ultimate Football Quiz</string>
-    <string name="font">fonts/simpler.ttf</string>
+    <string name="font">fonts/HelveticaBold.ttf</string>
 
     <string name="play_en">Play</string>
     <string name="single_play_en">Single play</string>
@@ -16,11 +16,13 @@
     <string name="options_en">Options</string>
     <string name="rights_en">Copyright</string>
     <string name="rateApp_en">Rate app, +500</string>
-    <string name="video_en">Watch video, +50</string>
+    <string name="video_en">Watch video, +250</string>
     <string name="keep_en">Keep it up!</string>
     <string name="coins_en">coins</string>
     <string name="level_en">Level</string>
     <string name="time_en">Time</string>
+    <string name="win_en">You win!</string>
+    <string name="loose_en">You loose!</string>
 
     <string name="play_ru">Играть</string>
     <string name="single_play_ru">Одиночная игра</string>
@@ -36,11 +38,13 @@
     <string name="options_ru">Настройки</string>
     <string name="rights_ru">Авторское право</string>
     <string name="rateApp_ru">Оценить игру, +500</string>
-    <string name="video_ru">Посмотреть видео, +50</string>
+    <string name="video_ru">Посмотреть видео, +250</string>
     <string name="keep_ru">Продолжай!</string>
     <string name="coins_ru">монет</string>
     <string name="level_ru">Уровень</string>
     <string name="time_ru">Время</string>
+    <string name="win_ru">Вы победили!</string>
+    <string name="loose_ru">Вы проиграли!</string>
 
     <string-array name="languages">
         <item>English</item>

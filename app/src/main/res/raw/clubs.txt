@@ -92,7 +92,7 @@
 92 legia
 93 genoa
 94 bolton_wanderers
-95 wolverhampton
+95 club_america
 96 wolfsburg
 97 sunderland
 98 dinamo_zagreb

@@ -131,7 +131,7 @@
 131 medel
 132 pedro
 133 cahill
-134 lasana_diarra
+134 lassana_diarra
 135 aurier
 136 bellarabi
 137 oscar
@@ -284,7 +284,7 @@
 284 bojan
 285 gibbs
 286 kalinic
-287 demichelis
+287 yarmolenko
 288 ogbonna
 289 kruse
 290 vargas
@@ -314,7 +314,7 @@
 314 tasci
 315 coentrao
 316 depay
-317 djorou
+317 djourou
 318 olsson
 319 montero
 320 ginter
@@ -375,7 +375,7 @@
 375 noble
 376 lennon
 377 klavan
-378 cambiasso
+378 akinfenwa
 379 aquilani
 380 de_jong
 381 musa
@@ -409,7 +409,7 @@
 409 prodl
 410 debuchy
 411 lingard
-412 cassano
+412 paulinho
 413 markovic
 414 embolo
 415 durm
@@ -428,8 +428,8 @@
 428 soriano
 429 altintop
 430 esswein
-431 kuit
-432 lambert
+431 semedo
+432 aboubakar
 433 santon
 434 flamini
 435 assaidi

@@ -66,16 +66,34 @@
             android:layout_margin="8dp"
             android:gravity="center" />
 
-        <TextView
-            android:id="@+id/years"
+        <RelativeLayout
+            android:id="@+id/years_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:textSize="26dp"
-            android:textColor="#ffffff"
-            android:textStyle="bold"/>
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/years"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:textSize="26dp"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/i"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:foregroundGravity="right"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

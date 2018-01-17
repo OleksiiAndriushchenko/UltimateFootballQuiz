@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.andaleksei.ultimatefootballquiz">
+    package="com.warped.andaleksei.ultimatefootballquiz">
 
     <application
         android:allowBackup="true"
@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:name="com.warped.andaleksei.ultimatefootballquiz.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,44 +20,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".playModes"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.playModes"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".singlePlayMode"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.singlePlayMode"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".playWithFriendMode"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.playWithFriendMode"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".singlePlayGame"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.singlePlayGame"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".singlePlayMenu"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.singlePlayMenu"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".playWithFriendGame"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.playWithFriendGame"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".popupWindowSinglePlayMode"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.popupWindowSinglePlayMode"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".popupWindowPlayWithFriend"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.popupWindowPlayWithFriend"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".hints"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.hints"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".settings"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.settings"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".coins"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.coins"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".popUpWindow"
+            android:name="com.warped.andaleksei.ultimatefootballquiz.popUpWindow"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".options" />
-        <activity android:name=".copyright"></activity>
+        <activity android:name="com.warped.andaleksei.ultimatefootballquiz.options" />
+        <activity android:name="com.warped.andaleksei.ultimatefootballquiz.copyright"></activity>
     </application>
 
 </manifest>
