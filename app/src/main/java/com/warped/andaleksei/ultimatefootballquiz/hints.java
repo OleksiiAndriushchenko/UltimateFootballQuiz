@@ -77,7 +77,7 @@ public class hints extends AppCompatActivity {
             hint1.setTextColor(Color.parseColor("#455A64"));
             containerHint1.setBackgroundResource(R.drawable.textview_frame_dark);
         } else {
-            hint1.setOnClickListener(new View.OnClickListener() {
+            containerHint1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -111,7 +111,7 @@ public class hints extends AppCompatActivity {
             hint2.setTextColor(Color.parseColor("#455A64"));
             containerHint2.setBackgroundResource(R.drawable.textview_frame_dark);
         } else {
-            hint2.setOnClickListener(new View.OnClickListener() {
+            containerHint2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (numberOfCoins >= numberOfChars * addChar) {

@@ -45,6 +45,16 @@
     <string name="time_ru">Время</string>
     <string name="win_ru">Вы победили!</string>
     <string name="loose_ru">Вы проиграли!</string>
+    <string name="error_rate_app_en">Google Play Store isn\'t installed</string>
+    <string name="error_loading_ad_en">Check your connection and try again!</string>
+    <string name="wait_until_ad_loads_en">Wait... Loading ad...</string>
+    <string name="error_rate_app_ru">Google Play Store не установлен</string>
+    <string name="error_loading_ad_ru">Проверьте ваше интернет-соединение!</string>
+    <string name="wait_until_ad_loads_ru">Реклама загружается...</string>
+
+    <string name="banner_ad_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="reward_ad_id">ca-app-pub-3940256099942544/5224354917</string>
 
     <string-array name="languages">
         <item>English</item>

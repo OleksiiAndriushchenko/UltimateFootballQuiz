@@ -57,4 +57,5 @@
         style="@style/textViewStyle"
         android:layout_centerInParent="true"/>
 
+
 </RelativeLayout>

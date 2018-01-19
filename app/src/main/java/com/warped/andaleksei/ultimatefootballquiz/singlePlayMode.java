@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class singlePlayMode extends AppCompatActivity {
 
     private final String drawable = "drawable";
     private final String COINS = "coins";
+    private AdView mAdView;
 
     private void updateProgressBars() {
         dataBase database = new dataBase(this);
@@ -183,6 +187,10 @@ public class singlePlayMode extends AppCompatActivity {
         TextView coins = (TextView) findViewById(R.id.coins);
 
         coins.setText("" + database.getVariableValue(COINS));
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

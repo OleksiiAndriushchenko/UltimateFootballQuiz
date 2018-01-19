@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.warped.andaleksei.ultimatefootballquiz.Utils.PreferenceUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -252,10 +254,12 @@ public class playWithFriendGame extends AppCompatActivity {
 
         popupWindow.putExtra("player right answers", playerRightAnswers);
         popupWindow.putExtra("opponent right answers", opponentRightAnswers);
-
+        PreferenceUtils.modyfyClickedCountBy(this,database.getVariableValue("time"));
+        PreferenceUtils.modyfyClickedCountBy(this,quantity);
         finish();
 
         startActivity(popupWindow);
+
     }
 
     @Override

@@ -12,6 +12,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.warped.andaleksei.ultimatefootballquiz.Utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +37,6 @@ public class singlePlayGame extends AppCompatActivity {
 
     private String objectName;
     private String tableName;
-
     private final String COINS = "coins";
 
     private final String hint1 = "add char";
@@ -42,13 +48,15 @@ public class singlePlayGame extends AppCompatActivity {
 
     private ImageView image;
     private ImageView previousClub;
-
+    private final String KEY_CURRENT_INPUT = "current-input";
+    private InterstitialAd mInterstitialAd;
+    boolean mRightAnswerEntered = false;
     List<TextView> answer;
     int answerNum[];
 
     TextView firstR[] = new TextView[charactersPerRow];
     TextView secondR[] = new TextView[charactersPerRow];
-
+    private AdView mAdView;
     private View.OnClickListener onCharacterClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -161,46 +169,62 @@ public class singlePlayGame extends AppCompatActivity {
     private void checkAnswer() {
 
         String userInput = "";
-
         for (int i = 0; i < num; i++) {
             userInput += answer.get(i).getText().toString();
         }
 
         if (objectName.equals(userInput)) {
-
-            Intent popupWindow = new Intent(
-                    singlePlayGame.this, popupWindowSinglePlayMode.class);
-
-            if (currentObject.getCompleted() == 0) {
-                currentObject.setCompleted(1);
-
-                database.updateVariable(COINS, database.getVariableValue(COINS) + 25);
-
-                popupWindow.putExtra("add coins", 1);
-
-                database.setCompleted(tableName, currentObject);
-
-                if (database.reachThreshold(gameMode)){
-                    int quantity = gameMode == 4 ? 5 : 10;
-                    database.unlockNextItem(tableName, quantity);
-                }
-
-                if (database.canOpenLegends())
-                    database.unlockNextItem("legendTable", 5);
-            } else
-                popupWindow.putExtra("add coins", 0);
-
-            popupWindow.putExtra("choosen item", itemIndex + 1);
-            popupWindow.putExtra("game mode", gameMode);
-
-            this.finish();
-
-            startActivity(popupWindow);
-
+            PreferenceUtils.changeClickedCountRightAnswer(this);
+            mRightAnswerEntered = true;
         } else {
+            // currently when the ads activity start, an answer field is automatically
+            // becomes empty
+            //So once the method onSaveInstance is properly implemented, the following code
+            // will be uncommented
+
+            PreferenceUtils.changeClickedCountWrongAnswer(this);
             startAnimation();
         }
 
+        if (PreferenceUtils.getClickedCount(this)>=15){
+            PreferenceUtils.setClickedCount(this,0);
+            if (mInterstitialAd.isLoaded())
+                mInterstitialAd.show();
+            return;
+        }
+        if (mRightAnswerEntered)
+            moveToLoadingScreen();
+    }
+
+    private void moveToLoadingScreen() {
+        Intent popupWindow = new Intent(
+                singlePlayGame.this, popupWindowSinglePlayMode.class);
+
+        if (currentObject.getCompleted() == 0) {
+            currentObject.setCompleted(1);
+
+            database.updateVariable(COINS, database.getVariableValue(COINS) + 25);
+
+            popupWindow.putExtra("add coins", 1);
+
+            database.setCompleted(tableName, currentObject);
+
+            if (database.reachThreshold(gameMode)){
+                int quantity = gameMode == 4 ? 5 : 10;
+                database.unlockNextItem(tableName, quantity);
+            }
+
+            if (database.canOpenLegends())
+                database.unlockNextItem("legendTable", 5);
+        } else
+            popupWindow.putExtra("add coins", 0);
+
+        popupWindow.putExtra("choosen item", itemIndex + 1);
+        popupWindow.putExtra("game mode", gameMode);
+
+        this.finish();
+
+        startActivity(popupWindow);
     }
 
     private int getResourceId(String resourceName) {
@@ -221,8 +245,15 @@ public class singlePlayGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_play_game);
 
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         database = new dataBase(this);
 
+        if (savedInstanceState != null &&
+            savedInstanceState.containsKey(KEY_CURRENT_INPUT))
+            restoreInput(savedInstanceState.getString(KEY_CURRENT_INPUT));
         database.updateVariable(hint1, 0);
         database.updateVariable(hint2, 0);
 
@@ -232,6 +263,20 @@ public class singlePlayGame extends AppCompatActivity {
 
         tableName = database.getTableName(gameMode);
 
+        // load ads
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                if (mRightAnswerEntered)
+                    moveToLoadingScreen();
+            }
+
+        });
         // data - index of item
         itemIndex = intent.getIntExtra("choosen item", -1);
 
@@ -505,6 +550,10 @@ public class singlePlayGame extends AppCompatActivity {
 
     }
 
+    private void restoreInput(String string) {
+
+    }
+
     private void clearAnswer() {
         for (int i = wordLength - 1; i >= 0; i--) {
             Log.v("TAG", "" + i + " " + num + " " + wordLength);
@@ -523,6 +572,16 @@ public class singlePlayGame extends AppCompatActivity {
         }
 
         num = 0;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String userInput = "";
+        for (int i = 0; i < num; i++) {
+            userInput += answer.get(i).getText().toString();
+        }
+        outState.putString(KEY_CURRENT_INPUT,userInput);
     }
 
     private void makeHint1(int charsToAdd) {

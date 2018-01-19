@@ -5,6 +5,10 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,6 +24,7 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
     private Timer timer;
 
     private final String COINS = "coins";
+    private InterstitialAd mInterstitialAd;
 
     private void setFont(final int addCoins) {
 
@@ -44,6 +49,7 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
 
             tv.setTypeface(custom_font);
         }
+
     }
 
     @Override
@@ -58,6 +64,11 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
 
         myStringAdapter = new stringAdapter();
 
+        // load ads
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
         TextView level = (TextView) findViewById(R.id.level);
         TextView coins = (TextView) findViewById(R.id.coins);
 
@@ -70,7 +81,10 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
         level.setText(myStringAdapter.getString(this, "level") + "\n" + completedItem);
 
         final String table = database.getTableName(tableId);
-
+        if (mInterstitialAd.isLoaded())
+            mInterstitialAd.show();
+        else
+            Toast.makeText(this,"Not loaded yet",Toast.LENGTH_SHORT);
         Timer t = new Timer();
         t.schedule(new TimerTask() {
 
@@ -93,7 +107,7 @@ public class popupWindowSinglePlayMode extends AppCompatActivity {
 
                 finish();
             }
-        }, 2000);
+        }, 1500);
 
 
     }

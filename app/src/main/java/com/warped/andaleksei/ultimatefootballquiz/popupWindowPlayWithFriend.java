@@ -5,17 +5,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.warped.andaleksei.ultimatefootballquiz.Utils.PreferenceUtils;
 
 import static com.warped.andaleksei.ultimatefootballquiz.R.id.playerResult;
 
 public class popupWindowPlayWithFriend extends AppCompatActivity {
 
     private stringAdapter myStringAdapter;
-
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup_window_play_with_friend);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         myStringAdapter = new stringAdapter();
 
@@ -57,4 +67,19 @@ public class popupWindowPlayWithFriend extends AppCompatActivity {
         winnerTextview.setTypeface(custom_font);
         loserTextview.setTypeface(custom_font);
     }
+
+    @Override
+    public void onBackPressed() {
+        if(PreferenceUtils.getClickedCount(this) >= 35) {
+            PreferenceUtils.setClickedCount(this,0);
+            if (mInterstitialAd.isLoaded())
+                mInterstitialAd.show();
+            else
+                Toast.makeText(this,"Ad is not loaded",Toast.LENGTH_SHORT);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 }
+

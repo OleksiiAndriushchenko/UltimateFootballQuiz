@@ -10,6 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+
 public class MainActivity extends AppCompatActivity {
 
     private dataBase database;
@@ -17,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private stringAdapter myStringAdapter;
 
     private final String COINS = "coins";
+    private AdView mAdView;
 
     private void setText() {
         TextView mainMenu = (TextView) findViewById(R.id.main_menu);
@@ -59,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         database = new dataBase(this);
 
         setVisibility();
-
+        MobileAds.initialize(this,"ca-app-pub-3489421035445731~1082237333");
         TextView playButton = (TextView)findViewById(R.id.main_menu);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
@@ -105,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         coins.setText(text);
 
+
     }
 
     @Override
@@ -120,4 +129,5 @@ public class MainActivity extends AppCompatActivity {
 
         coins.setText(text);
     }
+
 }
