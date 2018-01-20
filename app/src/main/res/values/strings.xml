@@ -52,9 +52,13 @@
     <string name="error_loading_ad_ru">Проверьте ваше интернет-соединение!</string>
     <string name="wait_until_ad_loads_ru">Реклама загружается...</string>
 
-    <string name="banner_ad_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial_ad_id">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="reward_ad_id">ca-app-pub-3940256099942544/5224354917</string>
+
+    <string name="add_ads_id">ca-app-pub-3489421035445731~1082237333</string>
+    <string name="banner_ad_modes_id">ca-app-pub-3489421035445731/4024751987</string>
+    <string name="banner_ad_single_play_id">ca-app-pub-3489421035445731/1821222487</string>
+    <string name="interstitial_ad_single_play_id">ca-app-pub-3489421035445731/8533970499</string>
+    <string name="interstitial_ad_play_with_friend_id">ca-app-pub-3489421035445731/4938340419</string>
+    <string name="reward_ad_id">ca-app-pub-3489421035445731/2104293516</string>
 
     <string-array name="languages">
         <item>English</item>

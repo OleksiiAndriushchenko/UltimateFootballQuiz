@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         database = new dataBase(this);
 
         setVisibility();
-        MobileAds.initialize(this,"ca-app-pub-3489421035445731~1082237333");
+        MobileAds.initialize(this,getString(R.string.add_ads_id));
         TextView playButton = (TextView)findViewById(R.id.main_menu);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(),

@@ -344,7 +344,6 @@ public class playWithFriendGame extends AppCompatActivity {
     protected void onDestroy() {
 
         super.onDestroy();
-
         timer.cancel();
 
     }

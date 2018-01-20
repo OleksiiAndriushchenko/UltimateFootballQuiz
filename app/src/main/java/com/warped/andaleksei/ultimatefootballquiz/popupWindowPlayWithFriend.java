@@ -24,7 +24,7 @@ public class popupWindowPlayWithFriend extends AppCompatActivity {
         setContentView(R.layout.activity_popup_window_play_with_friend);
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_play_with_friend_id));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         myStringAdapter = new stringAdapter();

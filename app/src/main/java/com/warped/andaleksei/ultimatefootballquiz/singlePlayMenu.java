@@ -52,8 +52,8 @@ public class singlePlayMenu extends Activity {
             if (database.getCompletedState(i, tableName) == 0 && firstUncompletedItem == 0)
                 firstUncompletedItem = i;
         }
-
         gridView.smoothScrollToPosition(firstUncompletedItem);
+       // gridView.setSelection(firstUncompletedItem);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

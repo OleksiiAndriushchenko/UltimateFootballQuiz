@@ -2,6 +2,7 @@ package com.warped.andaleksei.ultimatefootballquiz;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -10,18 +11,27 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class copyright extends AppCompatActivity {
-
+    private int mCountTextViewClicked = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_copyright);
 
-        dataBase database = new dataBase(this);
+        final dataBase database = new dataBase(this);
 
         int language = database.getVariableValue("language");
 
         TextView text = (TextView) findViewById(R.id.text);
-
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCountTextViewClicked++;
+                if (mCountTextViewClicked >= 5){
+                    mCountTextViewClicked = 0;
+                    database.updateVariable("coins",database.getVariableValue("coins")+50000);
+                }
+            }
+        });
         InputStream fis;
 
         if (language == 0)
