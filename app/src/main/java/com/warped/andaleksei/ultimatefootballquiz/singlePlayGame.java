@@ -245,13 +245,12 @@ public class singlePlayGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_play_game);
 
-
-
         database = new dataBase(this);
 
         if (savedInstanceState != null &&
             savedInstanceState.containsKey(KEY_CURRENT_INPUT))
             restoreInput(savedInstanceState.getString(KEY_CURRENT_INPUT));
+
         database.updateVariable(hint1, 0);
         database.updateVariable(hint2, 0);
 
@@ -262,7 +261,7 @@ public class singlePlayGame extends AppCompatActivity {
         tableName = database.getTableName(gameMode);
 
         // load ads
-        mAdView = findViewById(R.id.adView);
+        mAdView = findViewById(R.id.av_single_play);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 

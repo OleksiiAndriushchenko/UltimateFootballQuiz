@@ -74,8 +74,9 @@ public class popupWindowPlayWithFriend extends AppCompatActivity {
             PreferenceUtils.setClickedCount(this,0);
             if (mInterstitialAd.isLoaded())
                 mInterstitialAd.show();
-            else
-                Toast.makeText(this,"Ad is not loaded",Toast.LENGTH_SHORT);
+            finish();
+//            else
+//                Toast.makeText(this,"Ad is not loaded",Toast.LENGTH_SHORT);
         }
         else {
             super.onBackPressed();

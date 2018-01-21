@@ -109,6 +109,10 @@ public class singlePlayMode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_play_mode);
 
+        mAdView = findViewById(R.id.av_single_play_mode);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         database = new dataBase(this);
 
         myStringAdapter = new stringAdapter();
@@ -188,9 +192,7 @@ public class singlePlayMode extends AppCompatActivity {
 
         coins.setText("" + database.getVariableValue(COINS));
 
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+
     }
 
     @Override

@@ -404,16 +404,18 @@ public class playWithFriendGame extends AppCompatActivity {
                 countDownUp.setVisibility(View.GONE);
                 countDownDown.setVisibility(View.GONE);
             } else {
-                Intent popupWindow = new Intent(playWithFriendGame.this, popupWindowPlayWithFriend.class);
 
-                boolean winner = (playerRightAnswers > opponentRightAnswers ||
-                                  playerRightAnswers == opponentRightAnswers && firstFaster);
-
-                popupWindow.putExtra("winner", winner);
-
-                finish();
-
-                startActivity(popupWindow);
+//                Intent popupWindow = new Intent(playWithFriendGame.this, popupWindowPlayWithFriend.class);
+//
+//                boolean winner = (playerRightAnswers > opponentRightAnswers ||
+//                                  playerRightAnswers == opponentRightAnswers && firstFaster);
+//
+//                popupWindow.putExtra("winner", winner);
+//
+//                finish();
+//
+//                startActivity(popupWindow);
+                showResult();
             }
 
         }
