@@ -16,6 +16,7 @@
             android:textSize="18sp"
             android:gravity="center_horizontal"
             android:scrollbars="vertical"
+            android:textIsSelectable="true"
             style="@style/textViewStyle"/>
 
     </ScrollView>
