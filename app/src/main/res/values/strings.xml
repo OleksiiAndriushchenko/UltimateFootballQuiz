@@ -21,8 +21,8 @@
     <string name="coins_en">coins</string>
     <string name="level_en">Level</string>
     <string name="time_en">Time</string>
-    <string name="win_en">You win!</string>
-    <string name="loose_en">You loose!</string>
+    <string name="won_en">You won!</string>
+    <string name="lost_en">You lost!</string>
 
     <string name="play_ru">Играть</string>
     <string name="single_play_ru">Одиночная игра</string>
@@ -43,8 +43,9 @@
     <string name="coins_ru">монет</string>
     <string name="level_ru">Уровень</string>
     <string name="time_ru">Время</string>
-    <string name="win_ru">Вы победили!</string>
-    <string name="loose_ru">Вы проиграли!</string>
+    <string name="won_ru">Вы победили!</string>
+    <string name="lost_ru">Вы проиграли!</string>
+
     <string name="error_rate_app_en">Google Play Store isn\'t installed</string>
     <string name="error_loading_ad_en">Check your connection and try again!</string>
     <string name="wait_until_ad_loads_en">Wait... Loading ad...</string>

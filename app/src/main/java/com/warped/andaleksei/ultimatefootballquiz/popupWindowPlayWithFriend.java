@@ -55,8 +55,8 @@ public class popupWindowPlayWithFriend extends AppCompatActivity {
             window.setBackgroundResource(R.drawable.result_grad);
         }
 
-        String winnerStr = myStringAdapter.getString(this, "win");
-        String loserStr = myStringAdapter.getString(this, "loose");
+        String winnerStr = myStringAdapter.getString(this, "won");
+        String loserStr = myStringAdapter.getString(this, "lost");
 
         winnerTextview.setText(winnerStr);
         loserTextview.setText(loserStr);
